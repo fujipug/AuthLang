@@ -23,6 +23,13 @@ class Content(models.Model):
         ('Mexico', 'Mexico'),
         ('Colombia', 'Colombia'),
         ('Espana', 'Espana'),
+        ('Argentina', 'Argentina'),
+        ('Chile', 'Chile'),
+        ('Costa Rica', 'Costa Rica'),
+        ('Peru', 'Peru'),
+        ('Venezuela', 'Venezuela'),
+        ('Guatemala', 'Guatemala'),
+        ('Republica Dominicana', 'Republica Dominicana'),
         ('Otro', 'Otro'),
     )
     country = models.CharField(max_length = 200, choices = COUNTRY_CHOICES, default = "Otro")
