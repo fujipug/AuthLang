@@ -5,10 +5,10 @@ from django.contrib.auth.models import User
 
 
 def home(request):
-    return render(request, "home.html", {})
+    return render(request, "main/home.html", {})
 
 def pages(request):
-	return render(request, "page.html", {})
+	return render(request, "main/page.html", {})
 
 def facil_list(request):
-	return render(request, "facil_list.html", {})
+	return render(request, "main/facil_list.html", {})
