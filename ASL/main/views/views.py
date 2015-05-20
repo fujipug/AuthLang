@@ -22,6 +22,6 @@ def difficulty(request, difficulty_level):
 
 def theme(request, difficulty_level, theme):
     difficulty = Difficulty.objects.get(level=difficulty_level)
-    theme = Theme.objects.get(theme=theme)
+    theme = Theme.objects.get(theme=theme.replace ("-", " "))
     contents = Content.objects.filter(difficulty=difficulty).filter(theme=theme)
     return render(request, "main/theme.html", {'difficulty': difficulty, 'theme': theme, 'contents': contents})

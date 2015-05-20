@@ -16,7 +16,7 @@
 	<div class = ".col-md-6">
 	<!--List of themes for the beginner list-->
     {% for p in themes %}
-		<a href = "/{{ difficulty }}/{{ p.theme }}"><h4>{{ p.theme }}</h4></a>
+		<a href = "/{{ difficulty|slugify }}/{{ p.theme|slugify }}"><h4>{{ p.theme }}</h4></a>
     {% endfor %}
 	</div>
 

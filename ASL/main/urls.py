@@ -7,5 +7,5 @@ urlpatterns = patterns('',
     url(r'^$', 'main.views.views.home', name='home'),
     url(r'^content/(?P<id>\d+)/$', 'main.views.views.content_details'),
     url(r'^(?P<difficulty_level>\w+)/$', 'main.views.views.difficulty'),
-    url(r'^(?P<difficulty_level>\w+)/(?P<theme>\w+)/$', 'main.views.views.theme'),
+    url(r'^(?P<difficulty_level>\w+)/(?P<theme>[\w-]+)/$', 'main.views.views.theme'),
 )
