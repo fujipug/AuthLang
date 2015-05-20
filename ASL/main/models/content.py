@@ -1,5 +1,7 @@
 from django.db import models
 from embed_video.fields import EmbedVideoField
+from main.models.difficulty import Difficulty
+from main.models.country import Country
 
 
 class Content(models.Model):
@@ -12,18 +14,5 @@ class Content(models.Model):
     #video = models.URLField(max_length=200)
     video = EmbedVideoField()  # same like models.URLField()
     #keywords = tags
-    difficulty = models.ForeignKey('Difficulty', default="---")
-    COUNTRY_CHOICES = (
-        ('Mexico', 'Mexico'),
-        ('Colombia', 'Colombia'),
-        ('Espana', 'Espana'),
-        ('Argentina', 'Argentina'),
-        ('Chile', 'Chile'),
-        ('Costa Rica', 'Costa Rica'),
-        ('Peru', 'Peru'),
-        ('Venezuela', 'Venezuela'),
-        ('Guatemala', 'Guatemala'),
-        ('Republica Dominicana', 'Republica Dominicana'),
-        ('Otro', 'Otro'),
-    )
-    country = models.CharField(max_length = 200, choices = COUNTRY_CHOICES, default = "Otro")
+    difficulty = models.ForeignKey('Difficulty', default=Difficulty.DEFAULT_PK)
+    country = models.ForeignKey('Country', default=Country.DEFAULT_PK)
