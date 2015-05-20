@@ -14,10 +14,11 @@ def content_details(request, id):
 	return render(request, "main/content_details.html", {'content':content})
 
 
-def difficulty(request, difficulty):
-    #themes = Theme.objects.filters(difficulty=difficulty)
-    themes = Theme.objects.all
-    return render(request, "main/theme.html", {'difficulty': difficulty, 'themes': themes})
+def difficulty(request, difficulty_level):
+    difficulty = Difficulty.objects.get(level=difficulty_level)
+    themes = Theme.objects.filter(difficulty=difficulty)
+    #themes = Theme.objects.all
+    return render(request, "main/difficulty.html", {'difficulty': difficulty_level, 'themes': themes})
 
 
 def theme(request, difficulty, theme):
