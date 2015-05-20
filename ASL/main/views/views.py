@@ -21,6 +21,5 @@ def difficulty(request, difficulty_level):
     return render(request, "main/difficulty.html", {'difficulty': difficulty_level, 'themes': themes})
 
 
-def theme(request, difficulty, theme):
-	#if content.difficulty
-	return render(request, "main/theme.html", {'difficulty': difficulty, 'theme': theme})
+def theme(request, difficulty_level, theme):
+	return render(request, "main/theme.html", {'difficulty': difficulty_level, 'theme': Theme.objects.get(theme=theme)})

@@ -1,9 +1,10 @@
 from django.db import models
 from main.models.difficulty import Difficulty
 
+
 class Theme(models.Model):
 	difficulty = models.ForeignKey('Difficulty')
-	theme = models.CharField(max_length = 200)
+	theme = models.CharField(max_length = 200, unique=True)
 
 
 	def __unicode__(self):

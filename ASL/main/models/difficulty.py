@@ -1,7 +1,8 @@
 from django.db import models
 
+
 class Difficulty(models.Model):
-	level = models.CharField(max_length = 200)
+	level = models.CharField(max_length = 200, unique=True, default="---")
 
 
 	def __unicode__(self):
