@@ -14,9 +14,10 @@ def content_details(request, id):
 	return render(request, "main/content_details.html", {'content':content})
 
 
-def facil_list(request):
-	return render(request, "main/facil_list.html", {})
+def facil_list(request, difficulty):
+	return render(request, "main/facil_list.html", {'difficulty': difficulty})
 
-def themes(request):
+
+def theme(request, difficulty, theme):
 	#if content.difficulty
-	return render(request, "main/themes.html", {})
+	return render(request, "main/theme.html", {'difficulty': difficulty, 'theme': theme})
