@@ -14,21 +14,21 @@
 <br/>
 <br/>
 <br/>
-<!--list of video thumbnails and short descriptions-->
+<!--list of video thumbnails and short descriptions in groups of 4-->
 <div class = "container">
-    {% i = 0 %}
+    <div class = "row">
     {% for p in contents %}
-    {% if i % 4 == 0 %}
+    {% if forloop.counter0|divisibleby:"4" and forloop.counter0 > 0%}
+    </div>
     <div class = "row">
     {% endif %}
 		<div class = "col-md-3">
-            {% p.video %}
+            <p>{{ p.video }}</p>
 		</div>
-    {% if i % 4 == 3 %}
-    </div>
-    {% endif %}
-    {% i += 1 %}
+    {% empty %}
+    <p>Sorry, No Videos :0<p>
     {% endfor %}
+    </div>
 </div>
 
 {% endblock %}
