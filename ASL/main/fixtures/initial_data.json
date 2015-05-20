@@ -1,21 +1,24 @@
 [
 {
   "fields": {
-    "level": "other"
+    "level": "other",
+    "slug": "other"
   },
   "model": "main.difficulty",
   "pk": 1
 },
 {
   "fields": {
-    "country": "---"
+    "country": "other",
+    "slug": "other"
   },
   "model": "main.country",
   "pk": 1
 },
 {
   "fields": {
-    "theme": "no theme",
+    "theme": "other",
+    "slug": "other",
     "difficulty": 1,
     "country": 1
   },
