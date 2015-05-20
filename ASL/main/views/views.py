@@ -15,3 +15,6 @@ def content_details(request, id):
 
 def facil_list(request):
 	return render(request, "main/facil_list.html", {})
+
+def themes(request):
+	return render(request, "main/themes.html", {})
