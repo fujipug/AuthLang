@@ -10,7 +10,8 @@ def home(request):
 
 
 def content_details(request, id):
-	return render(request, "main/content_details.html", {})
+	content = Content.objects.get(id=id)
+	return render(request, "main/content_details.html", {'content':content})
 
 
 def facil_list(request):
