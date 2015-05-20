@@ -18,4 +18,5 @@ def facil_list(request):
 	return render(request, "main/facil_list.html", {})
 
 def themes(request):
+	#if content.difficulty
 	return render(request, "main/themes.html", {})
