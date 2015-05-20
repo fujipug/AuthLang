@@ -1,4 +1,5 @@
 from django.db import models
+from embed_video.fields import EmbedVideoField
 
 
 class Content(models.Model):
@@ -7,7 +8,8 @@ class Content(models.Model):
     description = models.CharField(max_length=200)
     vocab = models.CharField(max_length=200, blank=True, null=True)
     #images = models.CharField(max_length=200, blank=True, null=True)
-    video = models.URLField(max_length=200)
+    #video = models.URLField(max_length=200)
+    video = EmbedVideoField()  # same like models.URLField()
     #keywords = tags
     DIFFICULTY_CHOICES = (
         ('Facil', 'Facil'),
