@@ -12,9 +12,9 @@ class Content(models.Model):
     video = EmbedVideoField()  # same like models.URLField()
     #keywords = tags
     DIFFICULTY_CHOICES = (
-        ('Facil', 'Facil'),
-        ('Mediano', 'Mediano'),
-        ('Duro', 'Duro'),
+        ('Principante', 'Principante'),
+        ('Intermedio', 'Intermedio'),
+        ('Dificil', 'Dificil'),
         ('Otro', 'Otro'),
     )
     difficulty = models.CharField(max_length = 200, choices = DIFFICULTY_CHOICES, default = "Otro")
