@@ -2,7 +2,7 @@ from django.shortcuts import render
 from django.http import HttpResponse, HttpResponseRedirect
 from django.contrib.auth import authenticate
 from django.contrib.auth.models import User
-from main.models import Content
+from main.models import Content, Theme, Difficulty
 
 
 def home(request):
@@ -15,7 +15,9 @@ def content_details(request, id):
 
 
 def difficulty(request, difficulty):
-	return render(request, "main/difficulty.html", {'difficulty': difficulty})
+    #themes = Theme.objects.filters(difficulty=difficulty)
+    themes = Theme.objects.all
+    return render(request, "main/theme.html", {'difficulty': difficulty, 'themes': themes})
 
 
 def theme(request, difficulty, theme):
