@@ -1,0 +1,16 @@
+[
+{
+  "fields": {
+    "level": "other"
+  },
+  "model": "main.difficulty",
+  "pk": 1
+},
+{
+  "fields": {
+    "country": "---"
+  },
+  "model": "main.country",
+  "pk": 1
+}
+]

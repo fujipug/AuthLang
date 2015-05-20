@@ -12,7 +12,7 @@ class Content(models.Model):
     #video = models.URLField(max_length=200)
     video = EmbedVideoField()  # same like models.URLField()
     #keywords = tags
-    difficulty = models.ForeignKey('Difficulty')
+    difficulty = models.ForeignKey('Difficulty', default="---")
     COUNTRY_CHOICES = (
         ('Mexico', 'Mexico'),
         ('Colombia', 'Colombia'),
