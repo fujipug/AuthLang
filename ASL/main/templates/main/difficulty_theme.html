@@ -1,0 +1,35 @@
+{% extends 'main/base.html' %}
+{% include "main/base/nav.html" %}
+{% block head %}
+{% endblock %}
+
+{% block content %}
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<!--list of video thumbnails and short descriptions in groups of 4-->
+<div class = "container">
+    <div class = "row">
+    {% for p in contents %}
+    {% if forloop.counter0|divisibleby:"4" and forloop.counter0 > 0%}
+    </div>
+    <div class = "row">
+    {% endif %}
+		<div class = "col-md-3">
+            <p>{{ p.video }}</p>
+		</div>
+    {% empty %}
+    <p>Sorry, No Videos :0<p>
+    {% endfor %}
+    </div>
+</div>
+
+{% endblock %}
+{% block footer %} {% endblock %}

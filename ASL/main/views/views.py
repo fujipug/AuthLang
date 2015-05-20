@@ -20,8 +20,26 @@ def difficulty(request, difficulty_slug):
     return render(request, "main/difficulty.html", {'difficulty': difficulty, 'themes': themes})
 
 
-def theme(request, difficulty_slug, theme_slug):
+def country(request, difficulty_slug):
+    difficulty = Difficulty.objects.get(slug=difficulty_slug)
+    themes = Theme.objects.filter(difficulty=difficulty)
+    return render(request, "main/difficulty.html", {'difficulty': difficulty, 'themes': themes})
+
+
+#def theme(request, theme_slug):
+#    theme = Theme.objects.get(slug = theme_slug)
+#    return render(request, "main/theme.html", {theme': theme})
+
+
+def difficulty_theme(request, difficulty_slug, theme_slug):
     difficulty = Difficulty.objects.get(slug = difficulty_slug)
     theme = Theme.objects.get(slug = theme_slug)
     contents = Content.objects.filter(difficulty = difficulty).filter(theme = theme)
-    return render(request, "main/theme.html", {'difficulty': difficulty, 'theme': theme, 'contents': contents})
+    return render(request, "main/difficulty_theme.html", {'difficulty': difficulty, 'theme': theme, 'contents': contents})
+
+
+def country_theme(request, country_slug, theme_slug):
+    country = Country.objects.get(slug = country_slug)
+    theme = Theme.objects.get(slug = theme_slug)
+    contents = Content.objects.filter(country = country).filter(theme = theme)
+    return render(request, "main/country_theme.html", {'country': country, 'theme': theme, 'contents': contents})
