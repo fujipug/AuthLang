@@ -10,8 +10,8 @@ def home(request):
 
 
 def content_details(request, id):
-	content = Content.objects.get(id=id)
-	return render(request, "main/content_details.html", {'content':content})
+    content = Content.objects.get(id=id)
+    return render(request, "main/content_details.html", {'content': content})
 
 
 def difficulty(request, difficulty_slug):
@@ -26,7 +26,7 @@ def country(request, difficulty_slug):
     return render(request, "main/difficulty.html", {'difficulty': difficulty, 'themes': themes})
 
 
-#def theme(request, theme_slug):
+# def theme(request, theme_slug):
 #    theme = Theme.objects.get(slug = theme_slug)
 #    return render(request, "main/theme.html", {theme': theme})
 
@@ -34,7 +34,8 @@ def country(request, difficulty_slug):
 def difficulty_theme(request, difficulty_slug, theme_slug):
     difficulty = Difficulty.objects.get(slug = difficulty_slug)
     theme = Theme.objects.get(slug = theme_slug)
-    contents = Content.objects.filter(difficulty = difficulty).filter(theme = theme)
+    contents = Content.objects.filter(
+        difficulty = difficulty).filter(theme = theme)
     return render(request, "main/difficulty_theme.html", {'difficulty': difficulty, 'theme': theme, 'contents': contents})
 
 

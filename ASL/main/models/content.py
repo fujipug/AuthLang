@@ -6,15 +6,15 @@ from main.models.country import Country
 
 
 class Content(models.Model):
-    first_name = models.CharField(max_length=200)
-    last_name = models.CharField(max_length=200)
-    title = models.CharField(max_length=200)
-    description = models.CharField(max_length=200)
-    vocab = models.CharField(max_length=200, blank=True, null=True)
-    #images = models.CharField(max_length=200, blank=True, null=True)
-    #video = models.URLField(max_length=200)
+    first_name = models.CharField(max_length = 200)
+    last_name = models.CharField(max_length = 200)
+    title = models.CharField(max_length = 200)
+    description = models.CharField(max_length = 200)
+    vocab = models.CharField(max_length = 200, blank = True, null = True)
+    # images = models.CharField(max_length = 200, blank = True, null = True)
+    # video = models.URLField(max_length = 200)
     video = EmbedVideoField()  # same like models.URLField()
-    #keywords = tags
-    difficulty = models.ForeignKey('Difficulty', default=Difficulty.DEFAULT_PK)
-    country = models.ForeignKey('Country', default=Country.DEFAULT_PK)
-    theme = models.ForeignKey('Theme', default=Theme.DEFAULT_PK)
+    # keywords = tags
+    difficulty = models.ForeignKey('Difficulty', default = Difficulty.DEFAULT_PK)
+    country = models.ForeignKey('Country', default = Country.DEFAULT_PK)
+    theme = models.ForeignKey('Theme', default = Theme.DEFAULT_PK)
