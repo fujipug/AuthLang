@@ -11,12 +11,24 @@
 <br/>
 <br/>
 <br/>
+<br/>
+<br/>
+<br/>
+<!--list of video thumbnails and short descriptions-->
 <div class = "container">
-	list of video thumbnails and short descriptions
-	<div class = "row">
-		<div class = ".col-md-3">
-		</div>	
-	</div>
+    {% i = 0 %}
+    {% for p in contents %}
+    {% if i % 4 == 0 %}
+    <div class = "row">
+    {% endif %}
+		<div class = "col-md-3">
+            {% p.video %}
+		</div>
+    {% if i % 4 == 3 %}
+    </div>
+    {% endif %}
+    {% i += 1 %}
+    {% endfor %}
 </div>
 
 {% endblock %}

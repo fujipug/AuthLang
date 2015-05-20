@@ -1,6 +1,7 @@
 from django.db import models
 from embed_video.fields import EmbedVideoField
 from main.models.difficulty import Difficulty
+from main.models.theme import Theme
 from main.models.country import Country
 
 
@@ -16,3 +17,4 @@ class Content(models.Model):
     #keywords = tags
     difficulty = models.ForeignKey('Difficulty', default=Difficulty.DEFAULT_PK)
     country = models.ForeignKey('Country', default=Country.DEFAULT_PK)
+    theme = models.ForeignKey('Theme', default=Theme.DEFAULT_PK)

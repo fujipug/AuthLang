@@ -12,5 +12,14 @@
   },
   "model": "main.country",
   "pk": 1
+},
+{
+  "fields": {
+    "theme": "no theme",
+    "difficulty": 1,
+    "country": 1
+  },
+  "model": "main.theme",
+  "pk": 1
 }
 ]
