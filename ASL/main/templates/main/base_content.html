@@ -89,7 +89,9 @@
         <div class="row">
 
             <div class="col-md-8">
-                <img class="img-responsive" src="http://placehold.it/750x500" alt="">
+                {% load embed_video_tags %}
+                {% video content.video '750x500' %}
+                <!--<img class="img-responsive" src="http://placehold.it/750x500" alt="">-->
             </div>
 
             <div class="col-md-4">
