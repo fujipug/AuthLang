@@ -17,6 +17,7 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
 
     <!-- Custom CSS -->
+    <link href= "{% static "css/freelancer.css" %}" rel = "stylesheet">
     <link href= "{% static "css/portfolio-item.css" %}" rel = "stylesheet">
 
     <!-- Custom Fonts -->
@@ -33,11 +34,10 @@
     {% block head %}{% endblock %}
 </head>
 
-{% block content %}
 <body id="page-top" class="index">
 
     <!-- Navigation -->
-    <nav class="navbar navbar-default navbar-fixed-top">
+    <nav class="navbar navbar-default navbar-fixed-top navbar-shrink">
         <div class="container">
             <!-- Brand and toggle get grouped for better mobile display -->
             <div class="navbar-header page-scroll">
@@ -56,22 +56,21 @@
                     <li class="hidden">
                         <a href="/"></a>
                     </li>
-                    <!--<li class="page-scroll">
-                        <a href="/">Aprende Por</a>
+                    <li class="page-scroll">
+                        <a href="/#portfolio">Aprende Por</a>
                     </li>
                     <li class="page-scroll">
-                        <a href="#about">Index</a>
+                        <a href="/#about">Index</a>
                     </li>
                     <li class="page-scroll">
-                        <a href="#contact">Contact</a>
-                    </li>-->
+                        <a href="/#contact">Contact</a>
                 </ul>
             </div>
             <!-- /.navbar-collapse -->
         </div>
         <!-- /.container-fluid -->
     </nav>
-
+    {% block content %}
     <!-- Page Content -->
     <div class="container">
 
@@ -156,6 +155,22 @@
 
         </div>
         <!-- /.row -->
+        <!--test-->
+        {% if content.first_name > 1 and content.last_name > 1%}
+        <div class="row">
+            <div class="col-lg-12">
+            <h3 class="page-header">Related Projects</h3>
+        </div>
+        {% for title in titles%}
+        <div class="col-sm-3 col-xs-6">
+             <a href="#">
+                <img class="img-responsive portfolio-item" src="http://placehold.it/500x300" alt="">
+            </a>
+        </div>
+        {%  endfor %}
+        {% endif %}
+
+        <!--end test -->
 
         <hr>
         {% endblock %}
@@ -172,8 +187,10 @@
     </div>
     <!-- /.container -->
 
+
     <!-- jQuery -->
     <script src= "{% static "js/jquery.js" %}"></script>
+
 
     <!-- Bootstrap Core JavaScript -->
     <!-- Latest compiled and minified JavaScript -->

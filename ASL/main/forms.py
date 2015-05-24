@@ -1,7 +1,7 @@
 from django import forms
 #from django.contrib.auth.forms import UserCreationForm
 #from django.contrib.auth.models import User
-from main.models import Content, Country, Difficulty, Theme
+from main.models import Content, Category, SubCategory, ContentSubCategory, ContentCategory, CategoryType
 
 
 #class UserForm(UserCreationForm):
@@ -27,25 +27,36 @@ class ContentForm(forms.ModelForm):
         fields = ['first_name', 'last_name', 'title', 'description', 'vocab', 'video', 'difficulty', 'country', 'theme']
 
 
-class CountryForm(forms.ModelForm):
+class CategoryForm(forms.ModelForm):
     
     class Meta:
-        model = Country
-        fields = ['country', 'slug']
+        model = Category
+        fields = ['category', 'category_type']
 
 
-class DifficultyForm(forms.ModelForm):
+class CategoryTypeForm(forms.ModelForm):
+    
+    class Meta:
+        model = CategoryType
+        fields = ['category_type', 'slug']
+
+
+class ContentCategoryForm(forms.ModelForm):
     
     class Meta:
         model = Difficulty
-        fields = ['level', 'slug']
+        fields = ['content', 'category']
 
 
-class ThemeForm(forms.ModelForm):
+class ContentSubCategoryForm(forms.ModelForm):
     
     class Meta:
         model = Theme
-        fields = ['theme', 'slug', 'difficulty', 'country']
+        fields = ['content', 'subcategory']
 
 
-
+class SubCategoryForm(forms.ModelForm):
+    
+    class Meta:
+        model = Theme
+        fields = ['subcategory', 'slug', 'category']

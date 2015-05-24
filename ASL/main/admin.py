@@ -1,8 +1,5 @@
 from django.contrib import admin
-from main.models import Content, Difficulty, Theme, Country
+from main.models import Content
 
 
 admin.site.register(Content)
-admin.site.register(Difficulty)
-admin.site.register(Theme)
-admin.site.register(Country)

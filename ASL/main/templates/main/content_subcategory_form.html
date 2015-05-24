@@ -1,0 +1,19 @@
+{% extends 'main/base.html' %}
+{% include "main/base/nav.html" %}
+{% block head %}
+{% endblock %}
+
+{% block content %}
+	<br/>
+	<br/>
+	<br/>
+	<br/>
+	<br/>
+	<br/>
+	<br/>
+	<div class = "container">
+		{% csrf_token %}
+		{{ form.as_p }}
+	</div>
+{% endblock %}
+{% block footer %} {% endblock %}
