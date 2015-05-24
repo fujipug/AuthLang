@@ -1,6 +1,8 @@
 {% extends 'main/base.html' %}
 {% load embed_video_tags %}
-{% include "main/base/nav.html" %}
+{% block nav %}
+    {% include "main/base/nav.html" %}
+{% endblock %}
 {% block head %}
 {% endblock %}
 
