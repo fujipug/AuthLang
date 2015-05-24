@@ -23,7 +23,7 @@ class Country(models.Model):
         else:
             new_slug = slug
         # Check for uniqueness
-        if Difficulty.objects.filter(slug=new_slug).first() == None:
+        if Country.objects.filter(slug=new_slug).first() == None:
             return new_slug[:200]
         else:
             return self.get_unique_slug(slug, index + 1)
