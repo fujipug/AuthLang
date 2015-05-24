@@ -1,6 +1,31 @@
 [
 {
   "fields": {
+    "category_type": "other",
+    "slug": "other"
+  },
+  "model": "main.categoryType",
+  "pk": 1
+},
+{
+  "fields": {
+    "category_type": "difficulty",
+    "slug": "difficulty"
+  },
+  "model": "main.categoryType",
+  "pk": 2
+},
+{
+  "fields": {
+    "category_type": "country",
+    "slug": "country"
+  },
+  "model": "main.categoryType",
+  "pk": 3
+},
+{
+  "fields": {
+    "category_type": 1,
     "category": "other",
     "slug": "other"
   },
@@ -9,27 +34,11 @@
 },
 {
   "fields": {
-    "category": "difficulty",
-    "slug": "difficulty"
-  },
-  "model": "main.category",
-  "pk": 2
-},
-{
-  "fields": {
-    "category": "country",
-    "slug": "country"
-  },
-  "model": "main.category",
-  "pk": 3
-}
-{
-  "fields": {
-    "theme": "other",
+    "subcategory": "other",
     "slug": "other",
-    "category": 1,
+    "category": 1
   },
-  "model": "main.theme",
+  "model": "main.subcategory",
   "pk": 1
 }
 ]

@@ -2,9 +2,9 @@ from django.shortcuts import render
 from django.http import HttpResponse, HttpResponseRedirect
 from django.contrib.auth import authenticate
 from django.contrib.auth.models import User
-from main.models import Content, Theme, Difficulty, Country
+from main.models import Content, CategoryType, Category, Subcategory, ContentCategory, ContentSubcategory
 from django import forms
-from main.forms import ContentForm, CountryForm, ThemeForm, DifficultyForm
+from main.forms import ContentForm, CategoryTypeForm, CategoryForm, SubcategoryForm, ContentCategoryForm, ContentSubcategoryForm
 
 
 def home(request):
@@ -18,20 +18,16 @@ def content_details(request, id):
 
 def category_details(request, category_slug):
     category = Category.objects.get(slug=category_slug)
-    return render(request, "main/category_details.html", {'category': category, 'subcategories': subcategories = Subcategory.objects.filter(category=category)})
-
-
-# def theme(request, theme_slug):
-#    theme = Theme.objects.get(slug = theme_slug)
-#    return render(request, "main/theme.html", {theme': theme})
+    return render(request, "main/category_details.html", {'category': category, 'subcategories': Subcategory.objects.filter(category=category)})
 
 
 def subcategory_details(request, category_slug, subcategory_slug):
     category = Category.objects.get(slug=category_slug)
-    subcategory = Theme.objects.get(slug = subcategory_slug)
-    content_category = Content
-    contents = Content.objects.filter(difficulty = difficulty).filter(theme = theme)
-    return render(request, "main/difficulty_theme.html", {'category': Category.objects.get(slug=category_slug), 'theme': theme, 'contents': contents})
+    subcategory = Subcategory.objects.get(slug = subcategory_slug)
+    content_category = ContentCategory.objects.get(category = category)
+    content_subcategory = ContentSubcategory.objects.get(subcategory = subcategory)
+    contents = Content.objects.filter(id = content_category.content.id).filter(id = content_subcategory.content.id)
+    return render(request, "main/subcategory_details.html", {'category': Category.objects.get(slug=category_slug), 'subcategory': subcategory, 'contents': contents})
 
 
 def content_manager(request):

@@ -13,7 +13,7 @@ class Subcategory(models.Model):
     
 
     def __unicode__(self):
-        return self.theme
+        return self.subcategory
 
     def get_unique_slug(self, slug, index):
         # index > 1 means that the slug is not unqiue
