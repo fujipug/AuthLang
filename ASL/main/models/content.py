@@ -1,8 +1,12 @@
 from django.db import models
-from embed_video.fields import EmbedVideoField
 from main.models.difficulty import Difficulty
-from main.models.theme import Theme
 from main.models.country import Country
+from main.models.theme import Theme
+Country, Theme
+#from main.models.difficulty import Difficulty
+#from main.models.theme import Theme
+#from main.models.country import Country
+from embed_video.fields import EmbedVideoField
 
 
 class Content(models.Model):

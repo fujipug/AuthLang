@@ -1,4 +1,5 @@
 {% extends 'main/base.html' %}
+{% load embed_video_tags %}
 {% include "main/base/nav.html" %}
 {% block head %}
 {% endblock %}
@@ -17,14 +18,21 @@
 <!--list of video thumbnails and short descriptions in groups of 4-->
 <div class = "container">
     <div class = "row">
+
     {% for p in contents %}
     {% if forloop.counter0|divisibleby:"4" and forloop.counter0 > 0%}
     </div>
     <div class = "row">
     {% endif %}
-		<div class = "col-md-3">
-            <p>{{ p.video }}</p>
-		</div>
+        <a href = "/content/{{ p.id }}"
+    		<div class = "col-md-3">
+                {% video p.video as video %}
+                <img src="{{ video.thumbnail }}" height = "300px" width = "500px">
+                <p>{{ p.title }}</p>
+                <p>{{ p.description }}</p>
+                {% endvideo %}
+    		</div>
+        </a>
     {% empty %}
     <p>Sorry, No Videos :0<p>
     {% endfor %}
