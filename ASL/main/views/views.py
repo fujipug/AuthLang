@@ -4,7 +4,7 @@ from django.contrib.auth import authenticate
 from django.contrib.auth.models import User
 from main.models import Content, Theme, Difficulty, Country
 from django import forms
-from main.forms import ContentForm
+from main.forms import ContentForm, CountryForm, ThemeForm, DifficultyForm
 
 
 def home(request):
@@ -60,3 +60,44 @@ def content_manager(request):
     else:
         return HttpResponseRedirect('/') #'/user/edit/' + str(num))
     return render(request, 'main/content_form.html', { 'form': form })
+
+
+def country_manager(request):
+    if request.method == 'POST':
+        form = CountryForm(request.POST)
+        if form.is_valid():
+            #messages.success(request, 'Your changes have been saved.')
+            edited_data = form.save()
+            return HttpResponseRedirect('/') #'/user/edit/' + str(num))
+    elif request.method == 'GET':
+        form = CountryForm()
+    else:
+        return HttpResponseRedirect('/') #'/user/edit/' + str(num))
+    return render(request, 'main/country_form.html', { 'form': form })
+
+def theme_manager(request):
+    if request.method == 'POST':
+        form = ThemeForm(request.POST)
+        if form.is_valid():
+            #messages.success(request, 'Your changes have been saved.')
+            edited_data = form.save()
+            return HttpResponseRedirect('/') #'/user/edit/' + str(num))
+    elif request.method == 'GET':
+        form = ThemeForm()
+    else:
+        return HttpResponseRedirect('/') #'/user/edit/' + str(num))
+    return render(request, 'main/theme_form.html', { 'form': form })
+
+
+def difficulty_manager(request):
+    if request.method == 'POST':
+        form = DifficultyForm(request.POST)
+        if form.is_valid():
+            #messages.success(request, 'Your changes have been saved.')
+            edited_data = form.save()
+            return HttpResponseRedirect('/') #'/user/edit/' + str(num))
+    elif request.method == 'GET':
+        form = DifficultyForm()
+    else:
+        return HttpResponseRedirect('/') #'/user/edit/' + str(num))
+    return render(request, 'main/difficulty_form.html', { 'form': form })
