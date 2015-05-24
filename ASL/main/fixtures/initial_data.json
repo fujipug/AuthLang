@@ -1,26 +1,33 @@
 [
 {
   "fields": {
-    "level": "other",
+    "category": "other",
     "slug": "other"
   },
-  "model": "main.difficulty",
+  "model": "main.category",
   "pk": 1
 },
 {
   "fields": {
-    "country": "other",
-    "slug": "other"
+    "category": "difficulty",
+    "slug": "difficulty"
   },
-  "model": "main.country",
-  "pk": 1
+  "model": "main.category",
+  "pk": 2
 },
+{
+  "fields": {
+    "category": "country",
+    "slug": "country"
+  },
+  "model": "main.category",
+  "pk": 3
+}
 {
   "fields": {
     "theme": "other",
     "slug": "other",
-    "difficulty": 1,
-    "country": 1
+    "category": 1,
   },
   "model": "main.theme",
   "pk": 1

@@ -1,16 +1,15 @@
 from django.db import models
-from django.template.defaultfilters import slugify
 
 
-class Difficulty(models.Model):
-    # Difficulty "other" object has PK 1 and name "other" 
+class CategoryType(models.Model):
+    # CategoryType "other" object has PK 1 and name "other"
     # Loaded through fixture main/fixture/initinal_data.json
     DEFAULT_PK = 1
-    level = models.CharField(max_length = 200, unique = True)
+    category_type = models.CharField(max_length = 200, unique = True)
     slug = models.CharField(max_length = 200, blank = True)
 
     def __unicode__(self):
-        return self.level
+        return self.category_type
 
     def get_unique_slug(self, slug, index):
         # index > 1 means that the slug is not unqiue
@@ -23,7 +22,7 @@ class Difficulty(models.Model):
         else:
             new_slug = slug
         # Check for uniqueness
-        if Difficulty.objects.filter(slug=new_slug).first() == None:
+        if CategoryType.objects.filter(slug=new_slug).first() == None:
             return new_slug[:200]
         else:
             return self.get_unique_slug(slug, index + 1)
@@ -31,11 +30,11 @@ class Difficulty(models.Model):
     def save(self, *args, **kwargs):
         # Slugify: https://docs.djangoproject.com/en/1.8/ref/templates/builtins/#slugify
         #
-        # Slug is auto-generated using the field 'level' if not specified.
+        # Slug is auto-generated using the field 'category' if not specified.
         # Slugifies the field 'slug' and trucates it to 200 chars.
         # This is for dynamic urls.
         if len(self.slug) == 0:
-            slug = slugify(self.level)[:200]
+            slug = slugify(self.category_type)[:200]
         else:
             slug = slugify(self.slug)[:200]
         # Make slug is unique.
@@ -47,10 +46,10 @@ class Difficulty(models.Model):
         # Else this instance has been created already.
         # If slug is the same as what is already stored,
         # then skip checking for uniqueness.
-        elif slug == Difficulty.objects.get(pk = self.pk).slug:
-            self.slug=slug
+        elif slug == CategoryType.objects.get(pk = self.pk).slug:
+            self.slug = slug
         # If the slug is different than what is stored,
         # Check for uniqueness
         else:
             self.slug = self.get_unique_slug(slug, 1)
-        super(Difficulty, self).save(*args, **kwargs)
+        super(CategoryType, self).save(*args, **kwargs)

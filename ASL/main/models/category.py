@@ -1,21 +1,18 @@
 from django.db import models
+from main.models.category_type import CategoryType
 from django.template.defaultfilters import slugify
-from main.models.difficulty import Difficulty
-from main.models.country import Country
 
 
-class Theme(models.Model):
-    # Theme "other" object has PK 1 and name "other."
+class Category(models.Model):
+    # Category "other" object has PK 1 and name "other"
     # Loaded through fixture main/fixture/initinal_data.json
     DEFAULT_PK = 1
-    theme = models.CharField(max_length = 200, unique = True)
+    category = models.CharField(max_length = 200, unique = True)
+    category_type = models.ForeignKey('CategoryType', default = CategoryType.DEFAULT_PK)
     slug = models.CharField(max_length = 200, blank = True)
-    difficulty = models.ForeignKey('Difficulty', default = Difficulty.DEFAULT_PK)
-    country = models.ForeignKey('Country', default = Country.DEFAULT_PK)
-    
 
     def __unicode__(self):
-        return self.theme
+        return self.category
 
     def get_unique_slug(self, slug, index):
         # index > 1 means that the slug is not unqiue
@@ -28,7 +25,7 @@ class Theme(models.Model):
         else:
             new_slug = slug
         # Check for uniqueness
-        if Difficulty.objects.filter(slug = new_slug).first() == None:
+        if Category.objects.filter(slug=new_slug).first() == None:
             return new_slug[:200]
         else:
             return self.get_unique_slug(slug, index + 1)
@@ -36,14 +33,14 @@ class Theme(models.Model):
     def save(self, *args, **kwargs):
         # Slugify: https://docs.djangoproject.com/en/1.8/ref/templates/builtins/#slugify
         #
-        # Slug is auto-generated using the field 'theme' if not specified.
+        # Slug is auto-generated using the field 'category' if not specified.
         # Slugifies the field 'slug' and trucates it to 200 chars.
         # This is for dynamic urls.
         if len(self.slug) == 0:
-            slug = slugify(self.theme)[:200]
+            slug = slugify(self.category)[:200]
         else:
             slug = slugify(self.slug)[:200]
-        # Make slug unique.
+        # Make slug is unique.
         #
         # If self.pk is None, this means that the object hasn't been created yet.
         # This implies that it is safe to check for unqiueness.
@@ -52,10 +49,10 @@ class Theme(models.Model):
         # Else this instance has been created already.
         # If slug is the same as what is already stored,
         # then skip checking for uniqueness.
-        elif slug == Difficulty.objects.get(pk = self.pk).slug:
-            self.slug=slug
+        elif slug == Category.objects.get(pk = self.pk).slug:
+            self.slug = slug
         # If the slug is different than what is stored,
         # Check for uniqueness
         else:
             self.slug = self.get_unique_slug(slug, 1)
-        super(Theme, self).save(*args, **kwargs)
+        super(Category, self).save(*args, **kwargs)

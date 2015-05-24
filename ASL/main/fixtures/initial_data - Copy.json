@@ -1,0 +1,28 @@
+[
+{
+  "fields": {
+    "level": "other",
+    "slug": "other"
+  },
+  "model": "main.difficulty",
+  "pk": 1
+},
+{
+  "fields": {
+    "country": "other",
+    "slug": "other"
+  },
+  "model": "main.country",
+  "pk": 1
+},
+{
+  "fields": {
+    "theme": "other",
+    "slug": "other",
+    "difficulty": 1,
+    "country": 1
+  },
+  "model": "main.theme",
+  "pk": 1
+}
+]
