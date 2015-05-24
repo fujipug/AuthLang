@@ -8,7 +8,7 @@ from main.forms import ContentForm, CountryForm, ThemeForm, DifficultyForm
 
 
 def home(request):
-    return render(request, "main/home.html", {'difficulties':  Difficulty.objects.all, 'countires': Country.objects.all})
+    return render(request, "main/home.html", {'difficulties':  Difficulty.objects.all, 'countries': Country.objects.all})
 
 
 def content_details(request, id):
@@ -22,10 +22,10 @@ def difficulty(request, difficulty_slug):
     return render(request, "main/difficulty.html", {'difficulty': difficulty, 'themes': themes})
 
 
-def country(request, difficulty_slug):
-    difficulty = Difficulty.objects.get(slug=difficulty_slug)
-    themes = Theme.objects.filter(difficulty=difficulty)
-    return render(request, "main/difficulty.html", {'difficulty': difficulty, 'themes': themes})
+def country(request, country_slug):
+    country = Country.objects.get(slug=country_slug)
+    themes = Theme.objects.filter(country=country)
+    return render(request, "main/country.html", {'country': country, 'themes': themes})
 
 
 # def theme(request, theme_slug):
@@ -74,6 +74,7 @@ def country_manager(request):
     else:
         return HttpResponseRedirect('/') #'/user/edit/' + str(num))
     return render(request, 'main/country_form.html', { 'form': form })
+
 
 def theme_manager(request):
     if request.method == 'POST':

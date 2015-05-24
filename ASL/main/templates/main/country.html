@@ -1,0 +1,24 @@
+{% extends 'main/base.html' %}
+{% include "main/base/nav.html" %}
+{% block head %}
+{% endblock %}
+
+{% block content %}
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<div class = "container">
+	<h1>{{ country }}</h1>
+	<div class = ".col-md-6">
+	<!--List of themes for the beginner list-->
+    {% for p in themes %}
+		<a href = "/difficulty/{{ country.slug }}/theme/{{ p.slug }}"><h4>{{ p }}</h4></a>
+    {% endfor %}
+	</div>
+
+{% endblock %}
+{% block footer %} {% endblock %}

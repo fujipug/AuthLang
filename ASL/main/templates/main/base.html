@@ -153,9 +153,9 @@
                             <hr class="star-primary">
                             <!--<img src="img/portfolio/cake.png" class="img-responsive img-centered" alt="">-->
                             <p>Aprende por differentes paises</p> <!--Should be Dynamic-->
-                            <a href = ""><h3>Mexico</h3></a>
-                            <a href = ""><h3>Colombia</h3></a>
-                            <a href = ""><h3>Espana</h3></a>
+                            {% for p in countries %}
+                                <a href = "country/{{ p.slug }}"><h3>{{ p.country }}</h3></a>
+                            {% endfor %}
                             <button type="button" class="btn btn-default" data-dismiss="modal"><i class="fa fa-times"></i> Close</button>
                         </div>
                     </div>
