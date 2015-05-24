@@ -17,4 +17,5 @@ urlpatterns = patterns('',
                             'main.views.views.difficulty_theme'),
                         url(r'^country/(?P<country_slug>[\w-]+)/theme/(?P<theme_slug>[\w-]+)/$',
                             'main.views.views.country_theme'),
+                        url(r'^testform/', 'main.views.views.content_manager'),
                         )

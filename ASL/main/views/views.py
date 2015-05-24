@@ -3,6 +3,8 @@ from django.http import HttpResponse, HttpResponseRedirect
 from django.contrib.auth import authenticate
 from django.contrib.auth.models import User
 from main.models import Content, Theme, Difficulty, Country
+from django import forms
+from main.forms import ContentForm
 
 
 def home(request):
@@ -44,3 +46,17 @@ def country_theme(request, country_slug, theme_slug):
     theme = Theme.objects.get(slug = theme_slug)
     contents = Content.objects.filter(country = country).filter(theme = theme)
     return render(request, "main/country_theme.html", {'country': country, 'theme': theme, 'contents': contents})
+
+
+def content_manager(request):
+    if request.method == 'POST':
+        form = ContentForm(request.POST)
+        if form.is_valid():
+            #messages.success(request, 'Your changes have been saved.')
+            edited_data = form.save()
+            return HttpResponseRedirect('/') #'/user/edit/' + str(num))
+    elif request.method == 'GET':
+        form = ContentForm()
+    else:
+        return HttpResponseRedirect('/') #'/user/edit/' + str(num))
+    return render(request, 'main/content_form.html', { 'form': form })
