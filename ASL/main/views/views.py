@@ -111,4 +111,8 @@ def subcategory_manager(request):
         form = SubcategoryForm()
     else:
         return HttpResponseRedirect('/') #'/user/edit/' + str(num))
-    return render(request, 'main/subcategory_form.html', { 'form': form })    
+    return render(request, 'main/subcategory_form.html', { 'form': form })
+
+
+def table(request):
+    return render(request, "main/base/index_table.html", {})
