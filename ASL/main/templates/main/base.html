@@ -90,7 +90,7 @@
     {% endblock %}
     {% block content %}
     
-    {% include "main/base/portfolio.html" %}
+    {% include "main/base/category.html" with category_types=category_types %}
     {% include "main/base/about.html" %}
     {% include "main/base/contact.html" %}
     
@@ -107,7 +107,8 @@
     </div>
 
     <!-- Portfolio Modals -->
-    <div class="portfolio-modal modal fade" id="portfolioModal1" tabindex="-1" role="dialog" aria-hidden="true">
+    {% for p in category_types %}
+    <div class="portfolio-modal modal fade" id="portfolioModal{{ forloop.counter }}" tabindex="-1" role="dialog" aria-hidden="true">
         <div class="modal-content">
             <div class="close-modal" data-dismiss="modal">
                 <div class="lr">
@@ -119,42 +120,12 @@
                 <div class="row">
                     <div class="col-lg-8 col-lg-offset-2">
                         <div class="modal-body">
-                            <h2>Por Nivel</h2>
+                            <h2>{{ p.category_type }}</h2>
                             <hr class="star-primary">
                             <!--<img src="img/portfolio/cabin.png" class="img-responsive img-centered" alt="">-->
-                            <p>Dependiendo del nivel que usted quiere apreder, selecione uno de los niveles</p>
-                            {% for p in difficulties %}
-                                <a href = "/difficulty/{{ p.slug }}"><h3>{{ p.level }}</h3></a>
-                            {% endfor %}
-                            <!-- old stuff
-                            <!--<a href = "/difficulty/principiante"><h3>Principante</h3></a> <!--Easy
-                            <a href = "/difficulty/intermedio"><h3>Intermedio</h3></a> <!--Medium
-                            <a href = "/difficulty/dificil"><h3>Dificil</h3></a> <!--Duro-->
-                            <button type="button" class="btn btn-default" data-dismiss="modal"><i class="fa fa-times"></i> Close</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="portfolio-modal modal fade" id="portfolioModal2" tabindex="-1" role="dialog" aria-hidden="true">
-        <div class="modal-content">
-            <div class="close-modal" data-dismiss="modal">
-                <div class="lr">
-                    <div class="rl">
-                    </div>
-                </div>
-            </div>
-            <div class="container">
-                <div class="row">
-                    <div class="col-lg-8 col-lg-offset-2">
-                        <div class="modal-body">
-                            <h2>Por Pais</h2>
-                            <hr class="star-primary">
-                            <!--<img src="img/portfolio/cake.png" class="img-responsive img-centered" alt="">-->
-                            <p>Aprende por differentes paises</p> <!--Should be Dynamic-->
-                            {% for p in countries %}
-                                <a href = "country/{{ p.slug }}"><h3>{{ p.country }}</h3></a>
+                            <p>!!add descrption to model!! - Dependiendo del nivel que usted quiere apreder, selecione uno de los niveles</p>
+                            {% for q in categories %}
+                                <a href = "/{{ q.slug }}"><h3>{{ q.category }}</h3></a>
                             {% endfor %}
                             <button type="button" class="btn btn-default" data-dismiss="modal"><i class="fa fa-times"></i> Close</button>
                         </div>
@@ -163,7 +134,8 @@
             </div>
         </div>
     </div>
-    <div class="portfolio-modal modal fade" id="portfolioModal3" tabindex="-1" role="dialog" aria-hidden="true">
+    {% endfor %}
+    <div class="portfolio-modal modal fade" id="portfolioModal4" tabindex="-1" role="dialog" aria-hidden="true">
         <div class="modal-content">
             <div class="close-modal" data-dismiss="modal">
                 <div class="lr">
@@ -200,7 +172,7 @@
             </div>
         </div>
     </div>
-    <div class="portfolio-modal modal fade" id="portfolioModal4" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="portfolio-modal modal fade" id="portfolioModal5" tabindex="-1" role="dialog" aria-hidden="true">
         <div class="modal-content">
             <div class="close-modal" data-dismiss="modal">
                 <div class="lr">
@@ -237,7 +209,7 @@
             </div>
         </div>
     </div>
-    <div class="portfolio-modal modal fade" id="portfolioModal5" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="portfolio-modal modal fade" id="portfolioModal6" tabindex="-1" role="dialog" aria-hidden="true">
         <div class="modal-content">
             <div class="close-modal" data-dismiss="modal">
                 <div class="lr">
@@ -274,7 +246,7 @@
             </div>
         </div>
     </div>
-    <div class="portfolio-modal modal fade" id="portfolioModal6" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="portfolio-modal modal fade" id="portfolioModal7" tabindex="-1" role="dialog" aria-hidden="true">
         <div class="modal-content">
             <div class="close-modal" data-dismiss="modal">
                 <div class="lr">
