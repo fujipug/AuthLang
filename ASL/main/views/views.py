@@ -13,8 +13,49 @@ from rest_framework import generics
 
 #Serializer Stuff
 class ContentList(generics.ListCreateAPIView):
-    queryset = Content.objects.all()
+    model = Content
     serializer_class = ContentSerializer
+    def string_contains(self, string, substring):
+        if substring is not None:
+            if substring in string:
+                return True
+            else:
+                return False
+        return True
+
+    def get_queryset(self):
+        """
+        Optionally restricts the returned purchases to a given user,
+        by filtering against a 'title' query parameter in the URL.
+        """
+        queryset = []
+
+        
+        # url variables
+        first_name = self.request.query_params.get('first_name', None)
+        last_name = self.request.query_params.get('last_name', None)
+        country = self.request.query_params.get('country', None)
+        title = self.request.query_params.get('title', None)
+        order_by = self.request.query_params.get('order_by', None)
+        if order_by is not None:
+            contents = Content.objects.all().order_by(order_by)
+        else:
+            contents = Content.objects.all()
+
+        for content in contents:
+            print(content.country)
+            if not self.string_contains(content.first_name, first_name):
+                continue
+            if not self.string_contains(content.last_name, last_name):
+                continue
+            if not self.string_contains(content.country.category, country):
+            #if not content.country.country == country and country is not None:
+                continue
+            if not self.string_contains(content.title, title):
+                continue
+            queryset.append(content)
+
+        return queryset
 
 
 class ContentDetail(generics.RetrieveUpdateDestroyAPIView):
@@ -38,7 +79,7 @@ class CategoryList(generics.ListCreateAPIView):
     def get_queryset(self):
             """
             Optionally restricts the returned purchases to a given user,
-            by filtering against a `username` query parameter in the URL.
+            by filtering against a 'category_type' query parameter in the URL.
             """
             queryset = Category.objects.all()
             category_type = self.request.query_params.get('category_type', None)

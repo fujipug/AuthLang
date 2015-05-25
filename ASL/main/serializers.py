@@ -8,7 +8,7 @@ class ContentSerializer(serializers.ModelSerializer):
     class Meta:
         
         model = Content
-        fields = ('id', 'first_name', 'last_name', 'title', 'description', 'vocab', 'video')
+        fields = ('id', 'first_name', 'last_name', 'title', 'description', 'vocab', 'video', 'country')
 
 
 class CategoryTypeSerializer(serializers.ModelSerializer):
