@@ -263,3 +263,7 @@ def signin_manager(request):
 def user_logout(request):
     logout(request)
     return HttpResponseRedirect('/')
+
+
+def admin_forms(request):
+    return render(request, "main/admin_forms.html", {})       
