@@ -5,7 +5,19 @@ from django.contrib.auth.models import User
 from main.models import Content, CategoryType, Category, Subcategory, ContentCategory, ContentSubcategory
 from django import forms
 from main.forms import ContentForm, CategoryTypeForm, CategoryForm, SubcategoryForm, ContentCategoryForm, ContentSubcategoryForm
+from django.core import serializers
+from main.serializers import Content, CategoryTypeSerializer, CategorySerializer, SubcategorySerializer, ContentCategorySerializer, ContentSubcategorySerializer
+from rest_framework import generics
 
+Content, CategoryType, Category, Subcategory, ContentCategory, ContentSubcategory
+class ContentList(generics.ListCreateAPIView):
+    queryset = Content.objects.all()
+    serializer_class = ContentSerializer
+
+
+class ContentDetail(generics.RetrieveUpdateDestroyAPIView):
+    queryset = Content.objects.all()
+    serializer_class = ContentSerializer
 
 def home(request):
     return render(request, "main/home.html", {'categories': Category.objects.all, 'category_types': CategoryType.objects.all})

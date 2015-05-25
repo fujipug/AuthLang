@@ -18,4 +18,5 @@ urlpatterns = patterns('',
                             'main.views.views.category_details'),
                         url(r'^(?P<category_slug>[\w-]+)/(?P<subcategory_slug>[\w-]+)/$',
                             'main.views.views.subcategory_details'),
+                        url(r'^api-auth/', include('rest_framework.urls', namespace='rest_framework')),
                         )

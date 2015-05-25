@@ -33,6 +33,7 @@ FIXTURES_DIRS = [os.path.join(BASE_DIR, "main/fixtures")]
 
 INSTALLED_APPS = [
     'embed_video',
+    'rest_framework',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
