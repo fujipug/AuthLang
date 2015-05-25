@@ -124,6 +124,9 @@
                             <hr class="star-primary">
                             <!--<img src="img/portfolio/cabin.png" class="img-responsive img-centered" alt="">-->
                             <p>!!add descrption to model!! - Dependiendo del nivel que usted quiere apreder, selecione uno de los niveles</p>
+                             <div id = "portfolio_modals_container"> 
+                                <p> Loading...</p>
+                            </div>
                             {% for q in categories %}
                                 <a href = "/{{ q.slug }}"><h3>{{ q.category }}</h3></a>
                             {% endfor %}
@@ -284,7 +287,8 @@
         </div>
     </div>
     <!-- jQuery -->
-    <script src= "{% static "js/jquery.js" %}"></script>
+    <!--<script src= "{% static "js/jquery.js" %}"></script>-->
+    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
 
 
     <!-- Bootstrap Core JavaScript -->
@@ -297,6 +301,10 @@
     <script src= "{% static "js/classie.js" %}"></script>
     <script src= "{% static "js/cbpAnimatedHeader.js" %}"></script>
 
+    <!-- Mustache JavaScript -->
+    <script type="text/javascript"
+            src="http://cdnjs.cloudflare.com/ajax/libs/mustache.js/0.8.1/mustache.min.js"></script>
+
     <!-- Contact Form JavaScript -->
     <script src= "{% static "js/jqBootstrapValidation.js" %}"></script>
     <script src= "{% static "js/contact_me.js" %}"></script>
@@ -306,3 +314,109 @@
 
 </body>
 </html>
+
+{% verbatim %}
+<script type="text/javascript">
+    // using jQuery
+    function getCookie(name) {
+        var cookieValue = null;
+        if (document.cookie && document.cookie != '') {
+            var cookies = document.cookie.split(';');
+            for (var i = 0; i < cookies.length; i++) {
+                var cookie = jQuery.trim(cookies[i]);
+                // Does this cookie string begin with the name we want?
+                if (cookie.substring(0, name.length + 1) == (name + '=')) {
+                    cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                    break;
+                }
+            }
+        }
+        return cookieValue;
+    }
+    var csrftoken = getCookie('csrftoken');
+    function csrfSafeMethod(method) {
+        // these HTTP methods do not require CSRF protection
+        return (/^(GET|HEAD|OPTIONS|TRACE)$/.test(method));
+    }
+    function sameOrigin(url) {
+        // test that a given url is a same-origin URL
+        // url could be relative or scheme relative or absolute
+        var host = document.location.host; // host + port
+        var protocol = document.location.protocol;
+        var sr_origin = '//' + host;
+        var origin = protocol + sr_origin;
+        // Allow absolute or scheme relative URLs to same origin
+        return (url == origin || url.slice(0, origin.length + 1) == origin + '/') ||
+                (url == sr_origin || url.slice(0, sr_origin.length + 1) == sr_origin + '/') ||
+                    // or any other URL that isn't scheme relative or absolute i.e relative.
+                !(/^(\/\/|http:|https:).*/.test(url));
+    }
+    function postJson() {
+        $.ajaxSetup({
+                        beforeSend: function (xhr, settings) {
+                            if (!csrfSafeMethod(settings.type) && sameOrigin(settings.url)) {
+                                // Send the token to same-origin, relative URLs only.
+                                // Send the token only if the method warrants CSRF protection
+                                // Using the CSRFToken value acquired earlier
+                                xhr.setRequestHeader("X-CSRFToken", csrftoken);
+                            }
+                        }
+                    });
+        $.ajax({
+                   type: 'POST',
+                   url: "/posts/",
+                   data: JSON.stringify({
+                                            "csrfmiddlewaretoken": $('input[name="csrfmiddlewaretoken"]').val(),
+                                            "user": $('input[name="user_id"]').val(),
+                                            "username": $('input[name="username"]').val(),
+                                            "title": $('input[name="title"]').val(),
+                                            "body": $('textarea[name="body"]').val()
+                                        }),
+                   crossDomain: false,
+                   contentType: "application/json; charset=utf-8",
+                   dataType: "json",
+                   success: function () {
+                        $('input[name="title"]').val("");
+                        $('textarea[name="body"]').val("");
+                        loadData();
+                   }
+               });
+    }
+    function loadData() {
+        $.getJSON("/posts/?format=json", function (json) {
+            var template = $('#template').html();
+            Mustache.parse(template);
+            var data = {
+                array: json, 
+                "dateString": function () {
+                    return function (text, render) {
+                      return new Date(render(text)).toString();
+                    }
+                }
+            };
+            var rendered = Mustache.render(template, data);
+                
+            $('#target').html(rendered);
+        });
+        setTimeout(loadData, 5000);
+    }
+    $(document).ready(function () {
+
+
+        loadData();
+    })
+</script>
+<script id="template" type="x-tmpl-mustache">
+    <h2 align="center">POSTS</h2>
+  {{ #array }}<a href="/profile/{{ user }}" style="color: black; text-decoration: none;">
+    <h3>Name: {{ username }}</h3>
+    <strong><b>{{ title }}</b></strong> | {{#dateString}}{{ created }}{{/ dateString }}<br>
+    {{ body }}</a><br>
+  {{ /array }}
+</script>
+{% endverbatim %}
+    <div id="target" class="panel panel-primary" style="margin-top: 30px; width: 60%; margin-left: auto; margin-right: auto; padding-left: 20px; padding-right: 20px; padding-bottom: 20px;">
+        <h2 align="center">POSTS</h2>
+        <p> Loading...</p>
+    </div>
+</div>
