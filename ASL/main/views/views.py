@@ -8,7 +8,7 @@ from main.forms import ContentForm, CategoryTypeForm, CategoryForm, SubcategoryF
 
 
 def home(request):
-    return render(request, "main/home.html", {'difficulties':  Difficulty.objects.all, 'countries': Country.objects.all})
+    return render(request, "main/home.html", {'categories': Category.objects.all, 'category_types': CategoryType.objects.all})
 
 
 def content_details(request, id):
@@ -30,6 +30,48 @@ def subcategory_details(request, category_slug, subcategory_slug):
     return render(request, "main/subcategory_details.html", {'category': Category.objects.get(slug=category_slug), 'subcategory': subcategory, 'contents': contents})
 
 
+def category_manager(request):
+    if request.method == 'POST':
+        form = CategoryForm(request.POST)
+        if form.is_valid():
+            #messages.success(request, 'Your changes have been saved.')
+            edited_data = form.save()
+            return HttpResponseRedirect('/') #'/user/edit/' + str(num))
+    elif request.method == 'GET':
+        form = CategoryForm()
+    else:
+        return HttpResponseRedirect('/') #'/user/edit/' + str(num))
+    return render(request, 'main/category_form.html', { 'form': form })
+
+
+def category_type_manager(request):
+    if request.method == 'POST':
+        form = CategoryTypeForm(request.POST)
+        if form.is_valid():
+            #messages.success(request, 'Your changes have been saved.')
+            edited_data = form.save()
+            return HttpResponseRedirect('/') #'/user/edit/' + str(num))
+    elif request.method == 'GET':
+        form = CategoryTypeForm()
+    else:
+        return HttpResponseRedirect('/') #'/user/edit/' + str(num))
+    return render(request, 'main/category_type_form.html', { 'form': form })
+
+
+def content_category_manager(request):
+    if request.method == 'POST':
+        form = ContentCategoryForm(request.POST)
+        if form.is_valid():
+            #messages.success(request, 'Your changes have been saved.')
+            edited_data = form.save()
+            return HttpResponseRedirect('/') #'/user/edit/' + str(num))
+    elif request.method == 'GET':
+        form = ContentCategoryForm()
+    else:
+        return HttpResponseRedirect('/') #'/user/edit/' + str(num))
+    return render(request, 'main/content_category_form.html', { 'form': form })
+
+
 def content_manager(request):
     if request.method == 'POST':
         form = ContentForm(request.POST)
@@ -44,43 +86,29 @@ def content_manager(request):
     return render(request, 'main/content_form.html', { 'form': form })
 
 
-def country_manager(request):
+def content_subcategory_manager(request):
     if request.method == 'POST':
-        form = CountryForm(request.POST)
+        form = ContentSubcategoryForm(request.POST)
         if form.is_valid():
             #messages.success(request, 'Your changes have been saved.')
             edited_data = form.save()
             return HttpResponseRedirect('/') #'/user/edit/' + str(num))
     elif request.method == 'GET':
-        form = CountryForm()
+        form = ContentSubcategoryForm()
     else:
         return HttpResponseRedirect('/') #'/user/edit/' + str(num))
-    return render(request, 'main/country_form.html', { 'form': form })
+    return render(request, 'main/content_subcategory_form.html', { 'form': form })
 
 
-def theme_manager(request):
+def subcategory_manager(request):
     if request.method == 'POST':
-        form = ThemeForm(request.POST)
+        form = SubcategoryForm(request.POST)
         if form.is_valid():
             #messages.success(request, 'Your changes have been saved.')
             edited_data = form.save()
             return HttpResponseRedirect('/') #'/user/edit/' + str(num))
     elif request.method == 'GET':
-        form = ThemeForm()
+        form = SubcategoryForm()
     else:
         return HttpResponseRedirect('/') #'/user/edit/' + str(num))
-    return render(request, 'main/theme_form.html', { 'form': form })
-
-
-def difficulty_manager(request):
-    if request.method == 'POST':
-        form = DifficultyForm(request.POST)
-        if form.is_valid():
-            #messages.success(request, 'Your changes have been saved.')
-            edited_data = form.save()
-            return HttpResponseRedirect('/') #'/user/edit/' + str(num))
-    elif request.method == 'GET':
-        form = DifficultyForm()
-    else:
-        return HttpResponseRedirect('/') #'/user/edit/' + str(num))
-    return render(request, 'main/difficulty_form.html', { 'form': form })
+    return render(request, 'main/subcategory_form.html', { 'form': form })    
