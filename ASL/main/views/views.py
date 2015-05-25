@@ -1,10 +1,10 @@
 from django.shortcuts import render
 from django.http import HttpResponse, HttpResponseRedirect
-from django.contrib.auth import authenticate
+from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.models import User
 from main.models import Content, CategoryType, Category, Subcategory, ContentCategory, ContentSubcategory
 from django import forms
-from main.forms import ContentForm, CategoryTypeForm, CategoryForm, SubcategoryForm, ContentCategoryForm, ContentSubcategoryForm
+from main.forms import ContentForm, CategoryTypeForm, CategoryForm, SubcategoryForm, ContentCategoryForm, ContentSubcategoryForm, SigninForm
 from django.core import serializers
 from main.serializers import ContentSerializer, CategoryTypeSerializer, CategorySerializer, SubcategorySerializer, ContentCategorySerializer, ContentSubcategorySerializer
 from rest_framework import filters
@@ -198,3 +198,27 @@ def subcategory_manager(request):
 def search_table(request):
     contents = Content.objects.all()
     return render(request, "main/search_table.html", {'contents': contents})
+
+
+def signin_manager(request):
+    if request.method == 'POST':
+        form = SigninForm(request.POST)
+        if form.is_valid():
+            username = form.cleaned_data["username"]
+            password = form.cleaned_data["password"]
+            user = authenticate(username = username, password = password)
+            if user is not None:
+                login(request, user)
+                return HttpResponseRedirect('/')
+            else:
+                #messages.error(request, 'Incorrect username or password')
+                return HttpResponseRedirect('/signin/')
+    elif request.method == 'GET':
+        form = SigninForm()
+    else:
+        return HttpResponseRedirect('/signin/')
+    return render(request, "main/sign_in.html", {"form": form})
+
+def user_logout(request):
+    logout(request)
+    return HttpResponseRedirect('/')
