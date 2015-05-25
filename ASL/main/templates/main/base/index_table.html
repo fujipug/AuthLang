@@ -1,15 +1,17 @@
 <table style="width:100%">
-  <caption>Monthly savings</caption>
+  <caption>Stuff</caption>
   <tr>
-    <th>Month</th>
-    <th>Savings</th>
+    <th>Nombre</th>
+    <th>Apellido</th>
+    <th>Pais</th>
+    <th>Titulo</th>
   </tr>
+  {% for content in contents %}
   <tr>
-    <td>{{ content.first_name }}}</td>
-    <td>$100</td>
+    <td>{{ content.first_name }}</td>
+    <td>{{ content.last_name }}</td>
+    <td>{{ content.country }}</td>
+    <td>{{ content.title }}</td>
   </tr>
-  <tr>
-    <td>February</td>
-    <td>$50</td>
-  </tr>
-</table>
+  {% endfor %}
+</table> 
