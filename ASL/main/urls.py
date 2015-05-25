@@ -4,7 +4,7 @@ from django.conf import settings
 
 urlpatterns = patterns('',
                         url(r'^admin/', include(admin.site.urls)),
-                        url(r'^tabletable', 'main.views.views.table'),
+                        url(r'^tabletable/(?P<id>\d+)/$', 'main.views.views.table'),
                         url(r'^$', 'main.views.views.home', name='home'),
                         url(r'^contentform/', 'main.views.views.content_manager'),
                         url(r'^categoryform/', 'main.views.views.category_manager'),

@@ -6,7 +6,7 @@ from main.models import Content, CategoryType, Category, Subcategory, ContentCat
 from django import forms
 from main.forms import ContentForm, CategoryTypeForm, CategoryForm, SubcategoryForm, ContentCategoryForm, ContentSubcategoryForm
 from django.core import serializers
-from main.serializers import Content, CategoryTypeSerializer, CategorySerializer, SubcategorySerializer, ContentCategorySerializer, ContentSubcategorySerializer
+from main.serializers import ContentSerializer, CategoryTypeSerializer, CategorySerializer, SubcategorySerializer, ContentCategorySerializer, ContentSubcategorySerializer
 from rest_framework import generics
 
 Content, CategoryType, Category, Subcategory, ContentCategory, ContentSubcategory
@@ -126,5 +126,6 @@ def subcategory_manager(request):
     return render(request, 'main/subcategory_form.html', { 'form': form })
 
 
-def table(request):
-    return render(request, "main/base/index_table.html", {})
+def table(request, id):
+    content = Content.objects.get(id=id)
+    return render(request, "main/base/index_table.html", {'content': content})
