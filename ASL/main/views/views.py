@@ -74,7 +74,8 @@ class ContentSubcategoryDetail(generics.RetrieveUpdateDestroyAPIView):
 
 
 def home(request):
-    return render(request, "main/home.html", {'categories': Category.objects.all, 'category_types': CategoryType.objects.all})
+    contents = Content.objects.all().order_by('-id')[:5]
+    return render(request, "main/home.html", {'categories': Category.objects.all, 'category_types': CategoryType.objects.all, 'contents': contents})
 
 
 def content_details(request, id):
@@ -180,9 +181,9 @@ def subcategory_manager(request):
     return render(request, 'main/subcategory_form.html', { 'form': form })
 
 
-def index_table(request):
-    contents = Content.objects.all().order_by('-id')[:5]
-    return render(request, "main/base/index_table.html", {'contents': contents})
+# def index_table(request):
+#     contents = Content.objects.all().order_by('-id')[:5]
+#     return render(request, "main/base/index_table.html", {'contents': contents})
 
 
 def search_table(request):

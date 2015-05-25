@@ -5,7 +5,7 @@ from main.views.views import ContentList, ContentDetail, CategoryTypeList, Categ
 from rest_framework.urlpatterns import format_suffix_patterns
 urlpatterns = patterns('',
                         url(r'^admin/', include(admin.site.urls)),
-                        url(r'^indextable/', 'main.views.views.index_table'),
+                        #url(r'^indextable/', 'main.views.views.index_table'),
                         url(r'^searchtable/', 'main.views.views.search_table'),
                         url(r'^$', 'main.views.views.home', name='home'),
                         url(r'^contentform/', 'main.views.views.content_manager'),
