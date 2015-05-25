@@ -33,9 +33,18 @@ class CategoryTypeDetail(generics.RetrieveUpdateDestroyAPIView):
 
 
 class CategoryList(generics.ListCreateAPIView):
-    queryset = Category.objects.all()
+    model = Category
     serializer_class = CategorySerializer
-    filter_fields = ('category_type')
+    def get_queryset(self):
+            """
+            Optionally restricts the returned purchases to a given user,
+            by filtering against a `username` query parameter in the URL.
+            """
+            queryset = Category.objects.all()
+            category_type = self.request.query_params.get('category_type', None)
+            if category_type is not None:
+                queryset = queryset.filter(category_type=category_type)
+            return queryset
 
 class CategoryDetail(generics.RetrieveUpdateDestroyAPIView):
     queryset = Category.objects.all()
