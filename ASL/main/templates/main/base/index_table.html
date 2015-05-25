@@ -1,17 +1,16 @@
-<table style="width:100%">
-  <caption>Stuff</caption>
-  <tr>
-    <th>Nombre</th>
-    <th>Apellido</th>
-    <th>Pais</th>
-    <th>Titulo</th>
-  </tr>
-  {% for content in contents %}
-  <tr>
-    <td>{{ content.first_name }}</td>
-    <td>{{ content.last_name }}</td>
-    <td>{{ content.country }}</td>
-    <td>{{ content.title }}</td>
-  </tr>
-  {% endfor %}
+<table class = "table" style="width:100%">
+    <tr>
+      <td>Nombre</td>
+      <td>Apellido</td>
+      <td>Pais</td>
+      <td>Titulo</td>
+    </tr>
+    {% for content in contents %}
+    <tr>
+      <td>{{ content.first_name }}</td>
+      <td>{{ content.last_name }}</td>
+      <td>{{ content.country }}</td>
+      <td>{{ content.title }}</td>
+    </tr>
+    {% endfor %}
 </table> 
