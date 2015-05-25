@@ -179,7 +179,11 @@ def subcategory_manager(request):
     return render(request, 'main/subcategory_form.html', { 'form': form })
 
 
-def table(request):
-    contents = Content.objects.all()
-    #category = ContentCategory.objects.all()
+def index_table(request):
+    contents = Content.objects.all().order_by('-id')[:5]
     return render(request, "main/base/index_table.html", {'contents': contents})
+
+
+def search_table(request):
+    contents = Content.objects.all()
+    return render(request, "main/search_table.html", {'contents': contents})
