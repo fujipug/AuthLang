@@ -8,7 +8,7 @@ class ContentSerializer(serializers.ModelSerializer):
     class Meta:
         
         model = Content
-        fields = ('first_name', 'last_name', 'title', 'description', 'vocab', 'video')
+        fields = ('id', 'first_name', 'last_name', 'title', 'description', 'vocab', 'video')
 
 
 class CategoryTypeSerializer(serializers.ModelSerializer):
@@ -16,7 +16,7 @@ class CategoryTypeSerializer(serializers.ModelSerializer):
     class Meta:
         
         model = CategoryType
-        fields = ('category_type')
+        fields = ('id', 'category_type', 'slug')
 
 
 class CategorySerializer(serializers.ModelSerializer):
@@ -24,7 +24,7 @@ class CategorySerializer(serializers.ModelSerializer):
     class Meta:
         
         model = Category
-        fields = ('category_type', 'category')
+        fields = ('id', 'category_type', 'category', 'slug')
 
 
 class SubcategorySerializer(serializers.ModelSerializer):
@@ -32,7 +32,7 @@ class SubcategorySerializer(serializers.ModelSerializer):
     class Meta:
         
         model = Subcategory
-        fields = ('category', 'subcategory')
+        fields = ('id', 'category', 'subcategory', 'slug')
 
 
 class ContentCategorySerializer(serializers.ModelSerializer):
@@ -40,7 +40,7 @@ class ContentCategorySerializer(serializers.ModelSerializer):
     class Meta:
         
         model = ContentCategory
-        fields = ('content', 'category')
+        fields = ('id', 'content', 'category')
 
 
 class ContentSubcategorySerializer(serializers.ModelSerializer):
@@ -48,4 +48,4 @@ class ContentSubcategorySerializer(serializers.ModelSerializer):
     class Meta:
         
         model = ContentSubcategory
-        fields = ('content', 'subcategory')
+        fields = ('id', 'content', 'subcategory')
