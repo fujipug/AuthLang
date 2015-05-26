@@ -31,6 +31,10 @@ urlpatterns = patterns('',
                         url(r'^data/contentcategories/$', ContentCategoryList.as_view()),
                         url(r'^data/contentcategories/(?P<pk>[0-9]+)/$', ContentCategoryDetail.as_view()),
                         #end rest links
-                        url(r'^(?P<category_slug>[\w-]+)/$',
-                            'main.views.views.category_details'),
+                        url(r'difficulties/^(?P<category_slug>[\w-]+)/$',
+                            'main.views.views.difficulty_list'),
+                        url(r'countries/^(?P<category_slug>[\w-]+)/$',
+                            'main.views.views.country_list'),
+                        url(r'^(?P<category_type_slug>[\w-]+)/(?P<category_slug>[\w-]+)/$',
+                            'main.views.views.category_list'),
                         )

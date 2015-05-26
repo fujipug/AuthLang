@@ -134,18 +134,19 @@ def content_details(request, id):
     return render(request, "main/content_details.html", {'content': content})
 
 
-def category_details(request, category_slug):
-    category = Category.objects.get(slug=category_slug)
-    return render(request, "main/category_details.html", {'category': category, 'subcategories': Subcategory.objects.filter(category=category)})
-
-
-def subcategory_details(request, category_slug, subcategory_slug):
-    category = Category.objects.get(slug=category_slug)
-    subcategory = Subcategory.objects.get(slug = subcategory_slug)
-    content_category = ContentCategory.objects.get(category = category)
-    content_subcategory = ContentSubcategory.objects.get(subcategory = subcategory)
-    contents = Content.objects.filter(id = content_category.content.id).filter(id = content_subcategory.content.id)
-    return render(request, "main/subcategory_details.html", {'category': Category.objects.get(slug=category_slug), 'subcategory': subcategory, 'contents': contents})
+def content_list_by_category(request, category_type_slug, category_slug):
+    if category_type_slug == 'difficulty':
+        category = Difficulty.objects.get(slug = category_slug)
+        contents = Content.objects.filter(difficulty = difficulty)
+    elif category_type_slug == 'country':
+        category = Country.objects.get(slug = category_slug)
+        contents = Content.objects.filter(country = country)
+    else:
+        category_type = CategoryType.objects.get(slug=category_type_slug)
+        category = Category.objects.get(slug = category_slug)
+        #fix later
+        contents = Content.objects.all()
+    return render(request, "main/content_list_by_category.html", {'category': category, 'contents': contents})
 
 
 def search_table(request):
