@@ -7,8 +7,8 @@ urlpatterns = patterns('',
                         url(r'^admin/', include(admin.site.urls)),
                         #
                         url(r'^searchtable/', 'main.views.views.search_table'),
-                        url(r'^signin/', 'main.views.views.signin_manager'),
-                        url(r'^logout/', 'main.views.views.user_logout'),
+                        url(r'^signin/', 'main.views.signin_manager.signin_manager'),
+                        url(r'^logout/', 'main.views.signin_manager.user_logout'),
                         url(r'^$', 'main.views.views.home', name='home'),
                         #forms
                         url(r'^adminforms/', 'main.views.form_manager.admin_forms'),

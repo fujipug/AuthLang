@@ -151,27 +151,3 @@ def subcategory_details(request, category_slug, subcategory_slug):
 def search_table(request):
     contents = Content.objects.all()
     return render(request, "main/search_table.html", {'contents': contents})
-
-
-def signin_manager(request):
-    if request.method == 'POST':
-        form = SigninForm(request.POST)
-        if form.is_valid():
-            username = form.cleaned_data["username"]
-            password = form.cleaned_data["password"]
-            user = authenticate(username = username, password = password)
-            if user is not None:
-                login(request, user)
-                return HttpResponseRedirect('/')
-            else:
-                #messages.error(request, 'Incorrect username or password')
-                return HttpResponseRedirect('/signin/')
-    elif request.method == 'GET':
-        form = SigninForm()
-    else:
-        return HttpResponseRedirect('/signin/')
-    return render(request, "main/sign_in.html", {"form": form})
-
-def user_logout(request):
-    logout(request)
-    return HttpResponseRedirect('/')
