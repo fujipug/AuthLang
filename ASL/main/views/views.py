@@ -148,7 +148,11 @@ def content_list_by_category(request, category_type_slug, category_slug):
         category_type = CategoryType.objects.get(slug=category_type_slug)
         category = Category.objects.get(slug = category_slug)
         #fix later
-        contents = Content.objects.all()
+        content_categories = ContentCategory.objects.all().filter(category = category)
+        contents = []
+        if content_categories is not None:
+            for content_category in content_categories:
+                contents.append(content_category.content)
     return render(request, "main/content_list_by_category.html", {'category': category, 'category_type': category_type,'contents': contents})
 
 

@@ -17,3 +17,6 @@ class Content(models.Model):
     # video = models.URLField(max_length = 200)
     video = EmbedVideoField()  # same like models.URLField()
     # keywords = tags
+
+    def __unicode__(self):
+        return str(self.pk) + self.title
