@@ -10,6 +10,8 @@ urlpatterns = patterns('',
                         url(r'^signin/', 'main.views.signin_manager.signin_manager'),
                         url(r'^logout/', 'main.views.signin_manager.user_logout'),
                         url(r'^$', 'main.views.views.home', name='home'),
+                        url(r'^contents/(?P<id>[0-9]+)',
+                            'main.views.views.content_details'),
                         #forms
                         url(r'^adminforms/', 'main.views.form_manager.admin_forms'),
                         url(r'^contentform/', 'main.views.form_manager.content_manager'),
