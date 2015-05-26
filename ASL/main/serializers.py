@@ -41,6 +41,7 @@ class CategorySerializer(serializers.ModelSerializer):
         
         model = Category
         fields = ('id', 'category_type', 'category', 'slug')
+        depth = 1
 
 
 

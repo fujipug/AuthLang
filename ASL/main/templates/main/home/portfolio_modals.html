@@ -1,4 +1,4 @@
-<div class="portfolio-modal modal fade" id="portfolioModal1" tabindex="-1" role="dialog" aria-hidden="true">
+<div class="portfolio-modal modal fade" id="difficultyPortfolioModal" tabindex="-1" role="dialog" aria-hidden="true">
     <div class="modal-content">
         <div class="close-modal" data-dismiss="modal">
             <div class="lr">
@@ -14,7 +14,7 @@
                         <hr class="star-primary">
                         <!--<img src="img/portfolio/cabin.png" class="img-responsive img-centered" alt="">-->
                         <p>!!add descrption to model!! - Dependiendo del nivel que usted quiere apreder, selecione uno de los niveles</p>
-                         <div id = "difficulty_portfolio_modals_container" class = "portfolio_modals_container">
+                         <div id = "difficulty_portfolio_modals_container">
                             <p> Loading Difficulties...</p>
                         </div>
                         <button type="button" class="btn btn-default" data-dismiss="modal"><i class="fa fa-times"></i> Close</button>
@@ -24,8 +24,34 @@
         </div>
     </div>
 </div>
+<div class="portfolio-modal modal fade" id="countryPortfolioModal" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-content">
+        <div class="close-modal" data-dismiss="modal">
+            <div class="lr">
+                <div class="rl">
+                </div>
+            </div>
+        </div>
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 col-lg-offset-2">
+                    <div class="modal-body">
+                        <h2>Country</h2>
+                        <hr class="star-primary">
+                        <!--<img src="img/portfolio/cabin.png" class="img-responsive img-centered" alt="">-->
+                        <p>!!add descrption to model!! - Dependiendo del nivel que usted quiere apreder, selecione uno de los niveles</p>
+                         <div id = "country_portfolio_modals_container">
+                            <p> Loading Countries...</p>
+                        </div>
+                        <button type="button" class="btn btn-default" data-dismiss="modal"><i class="fa fa-times"></i> Close</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 {% for p in category_types %}
-<div class="portfolio-modal modal fade" id="portfolioModal{{ forloop.counter }}" tabindex="-1" role="dialog" aria-hidden="true">
+<div class="portfolio-modal modal fade" id="categoryPortfolioModal{{ forloop.counter }}" tabindex="-1" role="dialog" aria-hidden="true">
     <div class="modal-content">
         <div class="close-modal" data-dismiss="modal">
             <div class="lr">
@@ -41,8 +67,8 @@
                         <hr class="star-primary">
                         <!--<img src="img/portfolio/cabin.png" class="img-responsive img-centered" alt="">-->
                         <p>!!add descrption to model!! - Dependiendo del nivel que usted quiere apreder, selecione uno de los niveles</p>
-                         <div id = "portfolio_modals_container_{{ forloop.counter }}" class = "portfolio_modals_container">
-                            <p> Loading Category Types...</p>
+                         <div id = "category_portfolio_modals_container{{ forloop.counter }}" class = "category_portfolio_modals_container">
+                            <p> Loading Categories...</p>
                         </div>
                         <button type="button" class="btn btn-default" data-dismiss="modal"><i class="fa fa-times"></i> Close</button>
                     </div>

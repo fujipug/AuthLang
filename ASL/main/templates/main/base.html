@@ -86,7 +86,7 @@
     {% block javascript_scripts %}
     {% verbatim %}
     <script type="text/javascript">
-        function loadData(category_type) {
+        function loadCategoryData(category_type) {
             $.getJSON("/data/categories/?category_type=" + category_type + "&format=json", function (json) {
                 var template = $('#template').html();
                 Mustache.parse(template);
@@ -100,14 +100,14 @@
                 };
                 var rendered = Mustache.render(template, data);
                     
-                $('#portfolio_modals_container_' + category_type).html(rendered);
+                $('#category_portfolio_modals_container' + category_type).html(rendered);
                 //setTimeout(loadData(category_type), 5000);
             });
         }
         $(document).ready(function () {
-            $(".portfolio_modals_container").each(function() {
+            $(".category_portfolio_modals_container").each(function() {
                 //alert(this.id);
-                loadData(this.id.replace(/\D/g,''));
+                loadCategoryData(this.id.replace(/\D/g,''));
             });
         });
     </script>

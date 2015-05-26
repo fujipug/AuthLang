@@ -72,9 +72,9 @@
 {% block javascript_scripts %}
     {% verbatim %}
     <script type="text/javascript">
-        function loadData(category_type) {
-            $.getJSON("/data/categories/?format=json" + "&category_type=" + category_type, function (json) {
-                var template = $('#template').html();
+        function loadDifficultyData(category_type) {
+            $.getJSON("/data/difficulties/?format=json", function (json) {
+                var template = $('#difficulty_template').html();
                 Mustache.parse(template);
                 var data = {
                     array: json,
@@ -85,14 +85,46 @@
                     }
                 };
                 var rendered = Mustache.render(template, data);
-                    
-                $('#portfolio_modals_container_' + category_type).html(rendered);
-                //setTimeout(loadData(category_type), 5000);
+                $('#difficulty_portfolio_modals_container').html(rendered);
+            });
+        }
+        function loadCountryData() {
+            $.getJSON("/data/countries/?format=json", function (json) {
+                var template = $('#country_template').html();
+                Mustache.parse(template);
+                var data = {
+                    array: json,
+                    "dateString": function () {
+                        return function (text, render) {
+                          return new Date(render(text)).toString();
+                        }
+                    }
+                };
+                var rendered = Mustache.render(template, data);
+                $('#country_portfolio_modals_container').html(rendered);
+            });
+        }
+        function loadCategoryData(category_type) {
+            $.getJSON("/data/categories/?format=json" + "&category_type=" + category_type, function (json) {
+                var template = $('#category_template').html();
+                Mustache.parse(template);
+                var data = {
+                    array: json,
+                    "dateString": function () {
+                        return function (text, render) {
+                          return new Date(render(text)).toString();
+                        }
+                    }
+                };
+                var rendered = Mustache.render(template, data);
+                $('#category_portfolio_modals_container' + category_type).html(rendered);
             });
         }
         $(document).ready(function () {
-            $(".portfolio_modals_container").each(function() {
-                loadData(this.id.replace(/\D/g,''));
+            loadDifficultyData();
+            loadCountryData();
+            $(".category_portfolio_modals_container").each(function() {
+                loadCategoryData(this.id.replace(/\D/g,''));
             });
         });
     </script>
@@ -108,7 +140,7 @@
     </script>
     <script id="category_template" type="x-tmpl-mustache">
         {{ #array }}
-        <a href = "/{{ slug }}"><h3>{{ category }}</h3></a>
+        <a href = "{{ category_type.slug }}/{{ slug }}"><h3>{{ category }}</h3></a>
         {{ /array }}
     </script>
     {% endverbatim %}

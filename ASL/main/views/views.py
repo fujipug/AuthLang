@@ -102,9 +102,10 @@ class CategoryList(generics.ListCreateAPIView):
             by filtering against a 'category_type' query parameter in the URL.
             """
             queryset = Category.objects.all()
-            category_type = self.request.query_params.get('category_type', None)
-            if category_type is not None:
-                queryset = queryset.filter(category_type=category_type)
+            category_type_id = self.request.query_params.get('category_type', None)
+            if category_type_id is not None:
+                #category_type = CategoryType.objects.get(slug = category_type_slug)
+                queryset = queryset.filter(category_type=category_type_id)
             return queryset
 
 

@@ -8,9 +8,31 @@
             </div>
         </div>
         <div class="row">
+            <div class="col-sm-4 portfolio-item">
+                <a href="#difficultyPortfolioModal" class="portfolio-link" data-toggle="modal">
+                    <!--<div class="caption">
+                        <div class="caption-content">
+                            <i class="fa fa-search-plus fa-3x"></i>
+                        </div>
+                    </div>-->
+                    <h2>Difficulty</h2>
+                    <!--<img src="img/portfolio/cabin.png" class="img-responsive" alt="Nivel">-->
+                </a>
+            </div>
+            <div class="col-sm-4 portfolio-item">
+                <a href="#countryPortfolioModal" class="portfolio-link" data-toggle="modal">
+                    <!--<div class="caption">
+                        <div class="caption-content">
+                            <i class="fa fa-search-plus fa-3x"></i>
+                        </div>
+                    </div>-->
+                    <h2>Country</h2>
+                    <!--<img src="img/portfolio/cabin.png" class="img-responsive" alt="Nivel">-->
+                </a>
+            </div>
             {% for p in category_types %}
             <div class="col-sm-4 portfolio-item">
-                <a href="#portfolioModal{{ forloop.counter }}" class="portfolio-link" data-toggle="modal">
+                <a href="#categoryPortfolioModal{{ forloop.counter }}" class="portfolio-link" data-toggle="modal">
                     <!--<div class="caption">
                         <div class="caption-content">
                             <i class="fa fa-search-plus fa-3x"></i>
