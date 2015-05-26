@@ -47,9 +47,9 @@
                     <span class="icon-bar"></span>
                 </button>
                 {% if user.is_authenticated %}
-                    <h3 style = "color:#18bc9c">Hola, {{ user.username }} (admin)</h3>
-                    <a href="/logout/">Logout</a>
-                    <h4 style = "color:#18bc9c">Hola, {{ user.username }} (admin)</h4>
+                    <a class="navbar-brand" style = "color:#18bc9c" href = "/">Hola, {{ user.username }} (admin)</a>
+                    <a href="/adminforms/">Forms</a>
+                    <a style = "color:#FF9999" href="/logout/">Logout</a>
                 {% else %}
                     <a class="navbar-brand" href="#page-top">Authentic Spanish Language</a>
                 {% endif %}
