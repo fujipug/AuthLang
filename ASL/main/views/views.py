@@ -1,4 +1,5 @@
 from django.shortcuts import render
+#from django.template.defaultfilters import slugify
 from django.http import HttpResponse, HttpResponseRedirect
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.models import User
@@ -23,18 +24,13 @@ class ContentList(generics.ListCreateAPIView):
                 return False
         return True
 
-    def content_has_any_categories(self, categories, content_categories):
-        if categories is None:
-            return True
-        else:
-            if content_categories is None:
-                return False
-            for category in categories:
-                for content_category in content_categories:
-                    if content_category.category == category:
-                        return True
+    def any_element_in_both_lists(self, first, second):
+        if len(first) == 0 or len(second) == 0:
             return False
-
+        for element in first:
+            if element in second:
+                return True
+        return False
 
     def get_queryset(self):
         """
@@ -47,19 +43,20 @@ class ContentList(generics.ListCreateAPIView):
         # url variables
         first_name_substring= self.request.query_params.get('first_name', None)
         last_name_substring = self.request.query_params.get('last_name', None)
-        country_substring = self.request.query_params.get('country', None)
+        difficulty_slug_substring = self.request.query_params.get('difficulty', None)
+        country_slug_substring = self.request.query_params.get('country', None)
         title_substring = self.request.query_params.get('title', None)
-        category_substring_list = self.request.query_params.get('categories', None)
+        category_slug_substring_list = self.request.query_params.get('categories', None)
 
         #get categories based off category substring list
-        filtered_categories = []
-        if category_substring_list is not None:
-            category_substrings = [x.strip() for x in category_list.split(',')]
-            categories = Categories.objects.all()
+        category_filters = []
+        if category_slug_substring_list is not None:
+            category_slug_substrings = category_slug_substring_list.split(',')#[x for x in category_substring_list.split(',')]
+            categories = Category.objects.all()
             for category in categories:
-                for category_substring in category_substrings:
-                    if self.string_contains_substring(category.slug, category_substring):
-                        filtered_categories.append(category)
+                for category_slug_substring in category_slug_substrings:
+                    if self.string_contains_substring(category.slug, category_slug_substring):
+                        category_filters.append(category)
                         break
 
         order_by = self.request.query_params.get('order_by', None)
@@ -69,17 +66,13 @@ class ContentList(generics.ListCreateAPIView):
             contents = Content.objects.all()
 
         for content in contents:
-            if category_substring_list is not None:
-                content_categories = ContentCategory.objects.filter(content = content)
-                if not self.content_has_any_categories(filtered_categories, content_categories):
-                    continue
-
+            if category_slug_substring_list is not None and not self.any_element_in_both_lists(category_filters, content.categories.all()):
+                continue
             if not self.string_contains_substring(content.first_name, first_name_substring):
                 continue
             if not self.string_contains_substring(content.last_name, last_name_substring):
                 continue
-            if not self.string_contains_substring(content.country.slug, country_substring):
-            #if not content.country.country == country and country is not None:
+            if not self.string_contains_substring(content.country.slug, country_slug_substring):
                 continue
             if not self.string_contains_substring(content.title, title_substring):
                 continue
