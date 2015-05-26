@@ -69,6 +69,10 @@
 {% include "main/home/portfolio_modals.html" with category_types=category_types %}
 {% endblock %}
 
+{% block footer %}
+{% include "main/home/footer.html" %}
+{% endblock %}
+
 {% block javascript_scripts %}
     {% verbatim %}
     <script type="text/javascript">
