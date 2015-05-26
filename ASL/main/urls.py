@@ -16,6 +16,8 @@ urlpatterns = patterns('',
                         url(r'^categoryform/', 'main.views.form_manager.category_manager'),
                         url(r'^categorytypeform/', 'main.views.form_manager.category_type_manager'),
                         url(r'^contentcategoryform/', 'main.views.form_manager.content_category_manager'),
+                        url(r'^countryform/', 'main.views.form_manager.country_manager'),
+                        url(r'^difficultyform/', 'main.views.form_manager.difficulty_manager'),
                         #end forms
                         #rest links
                         url(r'^data/contents/$', ContentList.as_view()),
