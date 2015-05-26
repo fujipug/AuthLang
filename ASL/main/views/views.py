@@ -2,11 +2,11 @@ from django.shortcuts import render
 from django.http import HttpResponse, HttpResponseRedirect
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.models import User
-from main.models import Content, CategoryType, Category, ContentCategory
+from main.models import Content, Difficulty, Country, CategoryType, Category, ContentCategory
 from django import forms
-from main.forms import ContentForm, CategoryTypeForm, CategoryForm, ContentCategoryForm, SigninForm
+from main.forms import ContentForm, DifficultyForm, CountryForm, CategoryTypeForm, CategoryForm, ContentCategoryForm, SigninForm
 from django.core import serializers
-from main.serializers import ContentSerializer, CategoryTypeSerializer, CategorySerializer, ContentCategorySerializer
+from main.serializers import ContentSerializer, DifficultySerializer, CountrySerializer, CategoryTypeSerializer, CategorySerializer, ContentCategorySerializer
 from rest_framework import filters
 from rest_framework import generics
 
@@ -61,6 +61,26 @@ class ContentList(generics.ListCreateAPIView):
 class ContentDetail(generics.RetrieveUpdateDestroyAPIView):
     queryset = Content.objects.all()
     serializer_class = ContentSerializer
+
+
+class DifficultyList(generics.ListCreateAPIView):
+    queryset = Difficulty.objects.all()
+    serializer_class = DifficultySerializer
+
+
+class DifficultyDetail(generics.RetrieveUpdateDestroyAPIView):
+    queryset = Difficulty.objects.all()
+    serializer_class = DifficultySerializer
+
+
+class CountryList(generics.ListCreateAPIView):
+    queryset = Country.objects.all()
+    serializer_class = CountrySerializer
+
+
+class CountryDetail(generics.RetrieveUpdateDestroyAPIView):
+    queryset = Country.objects.all()
+    serializer_class = CountrySerializer
 
 
 class CategoryTypeList(generics.ListCreateAPIView):
@@ -184,32 +204,32 @@ def content_manager(request):
     return render(request, 'main/content_form.html', { 'form': form })
 
 
-def content_subcategory_manager(request):
+def difficulty_manager(request):
     if request.method == 'POST':
-        form = ContentSubcategoryForm(request.POST)
+        form = DifficultyForm(request.POST)
         if form.is_valid():
             #messages.success(request, 'Your changes have been saved.')
             edited_data = form.save()
             return HttpResponseRedirect('/') #'/user/edit/' + str(num))
     elif request.method == 'GET':
-        form = ContentSubcategoryForm()
+        form = DifficultyForm()
     else:
         return HttpResponseRedirect('/') #'/user/edit/' + str(num))
-    return render(request, 'main/content_subcategory_form.html', { 'form': form })
+    return render(request, 'main/difficulty_form.html', { 'form': form })
 
 
-def subcategory_manager(request):
+def country_manager(request):
     if request.method == 'POST':
-        form = SubcategoryForm(request.POST)
+        form = CountryForm(request.POST)
         if form.is_valid():
             #messages.success(request, 'Your changes have been saved.')
             edited_data = form.save()
             return HttpResponseRedirect('/') #'/user/edit/' + str(num))
     elif request.method == 'GET':
-        form = SubcategoryForm()
+        form = CountryForm()
     else:
         return HttpResponseRedirect('/') #'/user/edit/' + str(num))
-    return render(request, 'main/subcategory_form.html', { 'form': form })
+    return render(request, 'main/country_form.html', { 'form': form })
 
 
 # def index_table(request):

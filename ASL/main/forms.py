@@ -1,7 +1,7 @@
 from django import forms
 #from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
-from main.models import Content, Category, ContentCategory, CategoryType
+from main.models import Content, Difficulty, Country, Category, ContentCategory, CategoryType
 
 
 #class UserForm(UserCreationForm):
@@ -25,6 +25,20 @@ class ContentForm(forms.ModelForm):
     class Meta:
         model = Content
         fields = ['first_name', 'last_name', 'title', 'description', 'vocab', 'video']
+
+
+class DifficultyForm(forms.ModelForm):
+    
+    class Meta:
+        model = Difficulty
+        fields = ['difficulty']
+
+
+class CountryForm(forms.ModelForm):
+    
+    class Meta:
+        model = Country
+        fields = ['country']
 
 
 class CategoryForm(forms.ModelForm):
