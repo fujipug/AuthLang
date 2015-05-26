@@ -13,6 +13,7 @@ def admin_forms(request):
 
 def category_manager(request):
     if request.user.is_authenticated():
+        categories = Category.objects.all()
         if request.method == 'POST':
             form = CategoryForm(request.POST)
             if form.is_valid():
@@ -23,13 +24,14 @@ def category_manager(request):
             form = CategoryForm()
         else:
             return HttpResponseRedirect('/') #'/user/edit/' + str(num))
-        return render(request, 'main/category_form.html', { 'form': form })
+        return render(request, 'main/category_form.html', { 'form': form, 'categories': categories })
     else:
         return HttpResponseRedirect('/') #'/user/edit/' + str(num))
 
 
 def category_type_manager(request):
     if request.user.is_authenticated():
+        ctypes = CategoryType.objects.all()
         if request.method == 'POST':
             form = CategoryTypeForm(request.POST)
             if form.is_valid():
@@ -40,13 +42,14 @@ def category_type_manager(request):
             form = CategoryTypeForm()
         else:
             return HttpResponseRedirect('/') #'/user/edit/' + str(num))
-        return render(request, 'main/category_type_form.html', { 'form': form })
+        return render(request, 'main/category_type_form.html', { 'form': form, 'ctypes': ctypes })
     else:
         return HttpResponseRedirect('/') #'/user/edit/' + str(num))
 
 
 def content_category_manager(request):
     if request.user.is_authenticated():
+        contentcats = ContentCategory.objects.all()
         if request.method == 'POST':
             form = ContentCategoryForm(request.POST)
             if form.is_valid():
@@ -57,13 +60,14 @@ def content_category_manager(request):
             form = ContentCategoryForm()
         else:
             return HttpResponseRedirect('/') #'/user/edit/' + str(num))
-        return render(request, 'main/content_category_form.html', { 'form': form })
+        return render(request, 'main/content_category_form.html', { 'form': form, 'contentcats': contentcats })
     else:
         return HttpResponseRedirect('/') #'/user/edit/' + str(num))
 
 
 def content_manager(request):
     if request.user.is_authenticated():
+        contents = Content.objects.all()
         if request.method == 'POST':
             form = ContentForm(request.POST)
             if form.is_valid():
@@ -74,13 +78,14 @@ def content_manager(request):
             form = ContentForm()
         else:
             return HttpResponseRedirect('/') #'/user/edit/' + str(num))
-        return render(request, 'main/content_form.html', { 'form': form })
+        return render(request, 'main/content_form.html', { 'form': form, 'contents': contents })
     else:
         return HttpResponseRedirect('/') #'/user/edit/' + str(num))
 
 
 def difficulty_manager(request):
     if request.user.is_authenticated():
+        difficulties = Difficulty.objects.all()
         if request.method == 'POST':
             form = DifficultyForm(request.POST)
             if form.is_valid():
@@ -91,13 +96,14 @@ def difficulty_manager(request):
             form = DifficultyForm()
         else:
             return HttpResponseRedirect('/') #'/user/edit/' + str(num))
-        return render(request, 'main/difficulty_form.html', { 'form': form })
+        return render(request, 'main/difficulty_form.html', { 'form': form, 'difficulties': difficulties })
     else:
         return HttpResponseRedirect('/') #'/user/edit/' + str(num))
 
 
 def country_manager(request):
     if request.user.is_authenticated():
+        countries = Country.objects.all()
         if request.method == 'POST':
             form = CountryForm(request.POST)
             if form.is_valid():
@@ -108,6 +114,6 @@ def country_manager(request):
             form = CountryForm()
         else:
             return HttpResponseRedirect('/') #'/user/edit/' + str(num))
-        return render(request, 'main/country_form.html', { 'form': form })
+        return render(request, 'main/country_form.html', { 'form': form, 'countries': countries })
     else:
         return HttpResponseRedirect('/') #'/user/edit/' + str(num))
