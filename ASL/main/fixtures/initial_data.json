@@ -9,19 +9,19 @@
 },
 {
   "fields": {
-    "category_type": "difficulty",
-    "slug": "difficulty"
+    "difficulty": "other"
+    "slug": "other"
   },
-  "model": "main.categoryType",
-  "pk": 2
+  "model": "main.difficulty",
+  "pk": 1
 },
 {
   "fields": {
-    "category_type": "country",
-    "slug": "country"
+    "country": "other",
+    "slug": "other"
   },
-  "model": "main.categoryType",
-  "pk": 3
+  "model": "main.country",
+  "pk": 1
 },
 {
   "fields": {
@@ -32,13 +32,4 @@
   "model": "main.category",
   "pk": 1
 },
-{
-  "fields": {
-    "subcategory": "other",
-    "slug": "other",
-    "category": 1
-  },
-  "model": "main.subcategory",
-  "pk": 1
-}
 ]

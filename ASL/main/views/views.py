@@ -2,11 +2,11 @@ from django.shortcuts import render
 from django.http import HttpResponse, HttpResponseRedirect
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.models import User
-from main.models import Content, CategoryType, Category, Subcategory, ContentCategory, ContentSubcategory
+from main.models import Content, CategoryType, Category, ContentCategory
 from django import forms
-from main.forms import ContentForm, CategoryTypeForm, CategoryForm, SubcategoryForm, ContentCategoryForm, ContentSubcategoryForm, SigninForm
+from main.forms import ContentForm, CategoryTypeForm, CategoryForm, ContentCategoryForm, SigninForm
 from django.core import serializers
-from main.serializers import ContentSerializer, CategoryTypeSerializer, CategorySerializer, SubcategorySerializer, ContentCategorySerializer, ContentSubcategorySerializer
+from main.serializers import ContentSerializer, CategoryTypeSerializer, CategorySerializer, ContentCategorySerializer
 from rest_framework import filters
 from rest_framework import generics
 
@@ -87,19 +87,10 @@ class CategoryList(generics.ListCreateAPIView):
                 queryset = queryset.filter(category_type=category_type)
             return queryset
 
+
 class CategoryDetail(generics.RetrieveUpdateDestroyAPIView):
     queryset = Category.objects.all()
     serializer_class = CategorySerializer
-
-
-class SubcategoryList(generics.ListCreateAPIView):
-    queryset = Subcategory.objects.all()
-    serializer_class = SubcategorySerializer
-
-
-class SubcategoryDetail(generics.RetrieveUpdateDestroyAPIView):
-    queryset = Subcategory.objects.all()
-    serializer_class = SubcategorySerializer
 
 
 class ContentCategoryList(generics.ListCreateAPIView):
@@ -110,16 +101,6 @@ class ContentCategoryList(generics.ListCreateAPIView):
 class ContentCategoryDetail(generics.RetrieveUpdateDestroyAPIView):
     queryset = ContentCategory.objects.all()
     serializer_class = ContentCategorySerializer
-
-
-class ContentSubcategoryList(generics.ListCreateAPIView):
-    queryset = ContentSubcategory.objects.all()
-    serializer_class = ContentSubcategorySerializer
-
-
-class ContentSubcategoryDetail(generics.RetrieveUpdateDestroyAPIView):
-    queryset = ContentSubcategory.objects.all()
-    serializer_class = ContentSubcategorySerializer
 #End Serializer Stuff
 
 

@@ -26,7 +26,10 @@
 {% block javascript_scripts %}
 {% verbatim %}
 <script type="text/javascript">
-    function loadData() {
+    function loadData(title) {
+        if title.equals("") == false {
+            title_query="&title=" + title
+        }
         $.getJSON("/data/contents/?format=json", function (json) {
             var template = $('#template').html();
             Mustache.parse(template);
@@ -45,7 +48,7 @@
         });
     }
     $(document).ready(function () {
-        loadData();
+        loadData("");
     });
 </script>
 <script id="template" type="x-tmpl-mustache">

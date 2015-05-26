@@ -1,5 +1,7 @@
 from django.db import models
 from main.models.category import Category
+from main.models.country import Country
+from main.models.difficulty import Difficulty
 from embed_video.fields import EmbedVideoField
 
 
@@ -9,7 +11,8 @@ class Content(models.Model):
     title = models.CharField(max_length = 200)
     description = models.CharField(max_length = 200)
     vocab = models.CharField(max_length = 200, blank = True, null = True)
-    country = models.ForeignKey('Category')
+    difficulty = models.ForeignKey('Difficulty')
+    country = models.ForeignKey('Country')
     # images = models.CharField(max_length = 200, blank = True, null = True)
     # video = models.URLField(max_length = 200)
     video = EmbedVideoField()  # same like models.URLField()
