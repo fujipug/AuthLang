@@ -1,7 +1,7 @@
 from django import forms
 #from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
-from main.models import Content, Difficulty, Country, Category, ContentCategory, CategoryType
+from main.models import Content, Difficulty, Country, Category, CategoryType
 
 
 #class UserForm(UserCreationForm):
@@ -54,13 +54,6 @@ class CategoryTypeForm(forms.ModelForm):
         model = CategoryType
         fields = ['category_type']
         exclude = ['slug']
-
-
-class ContentCategoryForm(forms.ModelForm):
-    
-    class Meta:
-        model = ContentCategory
-        fields = ['content', 'category']
 
 
 class SigninForm(forms.Form):

@@ -2,11 +2,11 @@ from django.shortcuts import render
 from django.http import HttpResponse, HttpResponseRedirect
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.models import User
-from main.models import Content, Difficulty, Country, CategoryType, Category, ContentCategory
+from main.models import Content, Difficulty, Country, CategoryType, Category
 from django import forms
-from main.forms import ContentForm, DifficultyForm, CountryForm, CategoryTypeForm, CategoryForm, ContentCategoryForm, SigninForm
+from main.forms import ContentForm, DifficultyForm, CountryForm, CategoryTypeForm, CategoryForm, SigninForm
 from django.core import serializers
-from main.serializers import ContentSerializer, DifficultySerializer, CountrySerializer, CategoryTypeSerializer, CategorySerializer, ContentCategorySerializer
+from main.serializers import ContentSerializer, DifficultySerializer, CountrySerializer, CategoryTypeSerializer, CategorySerializer
 from rest_framework import filters
 from rest_framework import generics
 
@@ -15,13 +15,26 @@ from rest_framework import generics
 class ContentList(generics.ListCreateAPIView):
     model = Content
     serializer_class = ContentSerializer
-    def string_contains(self, string, substring):
+    def string_contains_substring(self, string, substring):
         if substring is not None:
             if substring in string:
                 return True
             else:
                 return False
         return True
+
+    def content_has_any_categories(self, categories, content_categories):
+        if categories is None:
+            return True
+        else:
+            if content_categories is None:
+                return False
+            for category in categories:
+                for content_category in content_categories:
+                    if content_category.category == category:
+                        return True
+            return False
+
 
     def get_queryset(self):
         """
@@ -32,10 +45,23 @@ class ContentList(generics.ListCreateAPIView):
 
         
         # url variables
-        first_name = self.request.query_params.get('first_name', None)
-        last_name = self.request.query_params.get('last_name', None)
-        country = self.request.query_params.get('country', None)
-        title = self.request.query_params.get('title', None)
+        first_name_substring= self.request.query_params.get('first_name', None)
+        last_name_substring = self.request.query_params.get('last_name', None)
+        country_substring = self.request.query_params.get('country', None)
+        title_substring = self.request.query_params.get('title', None)
+        category_substring_list = self.request.query_params.get('categories', None)
+
+        #get categories based off category substring list
+        filtered_categories = []
+        if category_substring_list is not None:
+            category_substrings = [x.strip() for x in category_list.split(',')]
+            categories = Categories.objects.all()
+            for category in categories:
+                for category_substring in category_substrings:
+                    if self.string_contains_substring(category.slug, category_substring):
+                        filtered_categories.append(category)
+                        break
+
         order_by = self.request.query_params.get('order_by', None)
         if order_by is not None:
             contents = Content.objects.all().order_by(order_by)
@@ -43,15 +69,19 @@ class ContentList(generics.ListCreateAPIView):
             contents = Content.objects.all()
 
         for content in contents:
-            print(content.country)
-            if not self.string_contains(content.first_name, first_name):
+            if category_substring_list is not None:
+                content_categories = ContentCategory.objects.filter(content = content)
+                if not self.content_has_any_categories(filtered_categories, content_categories):
+                    continue
+
+            if not self.string_contains_substring(content.first_name, first_name_substring):
                 continue
-            if not self.string_contains(content.last_name, last_name):
+            if not self.string_contains_substring(content.last_name, last_name_substring):
                 continue
-            if not self.string_contains(content.country.category, country):
+            if not self.string_contains_substring(content.country.slug, country_substring):
             #if not content.country.country == country and country is not None:
                 continue
-            if not self.string_contains(content.title, title):
+            if not self.string_contains_substring(content.title, title_substring):
                 continue
             queryset.append(content)
 
@@ -112,16 +142,6 @@ class CategoryList(generics.ListCreateAPIView):
 class CategoryDetail(generics.RetrieveUpdateDestroyAPIView):
     queryset = Category.objects.all()
     serializer_class = CategorySerializer
-
-
-class ContentCategoryList(generics.ListCreateAPIView):
-    queryset = ContentCategory.objects.all()
-    serializer_class = ContentCategorySerializer
-
-
-class ContentCategoryDetail(generics.RetrieveUpdateDestroyAPIView):
-    queryset = ContentCategory.objects.all()
-    serializer_class = ContentCategorySerializer
 #End Serializer Stuff
 
 
@@ -131,7 +151,7 @@ def home(request):
 
 
 def content_details(request, id):
-    content = Content.objects.get(id=id)
+    content = Content.objects.get(id = id)
     return render(request, "main/content_details.html", {'content': content})
 
 
@@ -147,13 +167,9 @@ def content_list_by_category(request, category_type_slug, category_slug):
     else:
         category_type = CategoryType.objects.get(slug=category_type_slug)
         category = Category.objects.get(slug = category_slug)
-        #fix later
-        content_categories = ContentCategory.objects.all().filter(category = category)
-        contents = []
-        if content_categories is not None:
-            for content_category in content_categories:
-                contents.append(content_category.content)
-    return render(request, "main/content_list_by_category.html", {'category': category, 'category_type': category_type,'contents': contents})
+        contents = Content.objects.filter(categories=category)
+    return render(request, "main/content_list_by_category.html", 
+        {'category': category, 'category_type': category_type,'contents': contents})
 
 
 def search_table(request):

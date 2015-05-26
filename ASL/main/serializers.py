@@ -1,6 +1,6 @@
 from django.forms import widgets
 from rest_framework import serializers
-from main.models import Content, Difficulty, Country, CategoryType, Category, ContentCategory
+from main.models import Content, Difficulty, Country, CategoryType, Category
 
 
 class ContentSerializer(serializers.ModelSerializer):
@@ -8,8 +8,8 @@ class ContentSerializer(serializers.ModelSerializer):
     class Meta:
         
         model = Content
-        fields = ('id', 'first_name', 'last_name', 'title', 'description', 'vocab', 'video', 'difficulty', 'country')
-
+        fields = ('id', 'first_name', 'last_name', 'title', 'description', 'vocab', 'video', 'difficulty', 'country', 'categories')
+        depth = 1
 
 class DifficultySerializer(serializers.ModelSerializer):
 
@@ -42,12 +42,3 @@ class CategorySerializer(serializers.ModelSerializer):
         model = Category
         fields = ('id', 'category_type', 'category', 'slug')
         depth = 1
-
-
-
-class ContentCategorySerializer(serializers.ModelSerializer):
-
-    class Meta:
-        
-        model = ContentCategory
-        fields = ('id', 'content', 'category')

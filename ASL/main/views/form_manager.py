@@ -2,9 +2,9 @@ from django.shortcuts import render
 from django.http import HttpResponse, HttpResponseRedirect
 from django.contrib.auth import authenticate
 from django.contrib.auth.models import User
-from main.models import Content, Difficulty, Country, CategoryType, Category, ContentCategory
+from main.models import Content, Difficulty, Country, CategoryType, Category
 from django import forms
-from main.forms import ContentForm, DifficultyForm, CountryForm, CategoryTypeForm, CategoryForm, ContentCategoryForm
+from main.forms import ContentForm, DifficultyForm, CountryForm, CategoryTypeForm, CategoryForm
 
 
 def admin_forms(request):
@@ -43,24 +43,6 @@ def category_type_manager(request):
         else:
             return HttpResponseRedirect('/') #'/user/edit/' + str(num))
         return render(request, 'main/category_type_form.html', { 'form': form, 'ctypes': ctypes })
-    else:
-        return HttpResponseRedirect('/') #'/user/edit/' + str(num))
-
-
-def content_category_manager(request):
-    if request.user.is_authenticated():
-        contentcats = ContentCategory.objects.all()
-        if request.method == 'POST':
-            form = ContentCategoryForm(request.POST)
-            if form.is_valid():
-                #messages.success(request, 'Your changes have been saved.')
-                edited_data = form.save()
-                return HttpResponseRedirect('/') #'/user/edit/' + str(num))
-        elif request.method == 'GET':
-            form = ContentCategoryForm()
-        else:
-            return HttpResponseRedirect('/') #'/user/edit/' + str(num))
-        return render(request, 'main/content_category_form.html', { 'form': form, 'contentcats': contentcats })
     else:
         return HttpResponseRedirect('/') #'/user/edit/' + str(num))
 
