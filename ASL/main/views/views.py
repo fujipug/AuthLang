@@ -148,95 +148,6 @@ def subcategory_details(request, category_slug, subcategory_slug):
     return render(request, "main/subcategory_details.html", {'category': Category.objects.get(slug=category_slug), 'subcategory': subcategory, 'contents': contents})
 
 
-def category_manager(request):
-    if request.method == 'POST':
-        form = CategoryForm(request.POST)
-        if form.is_valid():
-            #messages.success(request, 'Your changes have been saved.')
-            edited_data = form.save()
-            return HttpResponseRedirect('/') #'/user/edit/' + str(num))
-    elif request.method == 'GET':
-        form = CategoryForm()
-    else:
-        return HttpResponseRedirect('/') #'/user/edit/' + str(num))
-    return render(request, 'main/category_form.html', { 'form': form })
-
-
-def category_type_manager(request):
-    if request.method == 'POST':
-        form = CategoryTypeForm(request.POST)
-        if form.is_valid():
-            #messages.success(request, 'Your changes have been saved.')
-            edited_data = form.save()
-            return HttpResponseRedirect('/') #'/user/edit/' + str(num))
-    elif request.method == 'GET':
-        form = CategoryTypeForm()
-    else:
-        return HttpResponseRedirect('/') #'/user/edit/' + str(num))
-    return render(request, 'main/category_type_form.html', { 'form': form })
-
-
-def content_category_manager(request):
-    if request.method == 'POST':
-        form = ContentCategoryForm(request.POST)
-        if form.is_valid():
-            #messages.success(request, 'Your changes have been saved.')
-            edited_data = form.save()
-            return HttpResponseRedirect('/') #'/user/edit/' + str(num))
-    elif request.method == 'GET':
-        form = ContentCategoryForm()
-    else:
-        return HttpResponseRedirect('/') #'/user/edit/' + str(num))
-    return render(request, 'main/content_category_form.html', { 'form': form })
-
-
-def content_manager(request):
-    if request.method == 'POST':
-        form = ContentForm(request.POST)
-        if form.is_valid():
-            #messages.success(request, 'Your changes have been saved.')
-            edited_data = form.save()
-            return HttpResponseRedirect('/') #'/user/edit/' + str(num))
-    elif request.method == 'GET':
-        form = ContentForm()
-    else:
-        return HttpResponseRedirect('/') #'/user/edit/' + str(num))
-    return render(request, 'main/content_form.html', { 'form': form })
-
-
-def difficulty_manager(request):
-    if request.method == 'POST':
-        form = DifficultyForm(request.POST)
-        if form.is_valid():
-            #messages.success(request, 'Your changes have been saved.')
-            edited_data = form.save()
-            return HttpResponseRedirect('/') #'/user/edit/' + str(num))
-    elif request.method == 'GET':
-        form = DifficultyForm()
-    else:
-        return HttpResponseRedirect('/') #'/user/edit/' + str(num))
-    return render(request, 'main/difficulty_form.html', { 'form': form })
-
-
-def country_manager(request):
-    if request.method == 'POST':
-        form = CountryForm(request.POST)
-        if form.is_valid():
-            #messages.success(request, 'Your changes have been saved.')
-            edited_data = form.save()
-            return HttpResponseRedirect('/') #'/user/edit/' + str(num))
-    elif request.method == 'GET':
-        form = CountryForm()
-    else:
-        return HttpResponseRedirect('/') #'/user/edit/' + str(num))
-    return render(request, 'main/country_form.html', { 'form': form })
-
-
-# def index_table(request):
-#     contents = Content.objects.all().order_by('-id')[:5]
-#     return render(request, "main/base/index_table.html", {'contents': contents})
-
-
 def search_table(request):
     contents = Content.objects.all()
     return render(request, "main/search_table.html", {'contents': contents})
@@ -264,7 +175,3 @@ def signin_manager(request):
 def user_logout(request):
     logout(request)
     return HttpResponseRedirect('/')
-
-
-def admin_forms(request):
-    return render(request, "main/admin_forms.html", {})       

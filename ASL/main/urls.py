@@ -5,17 +5,17 @@ from main.views.views import ContentList, ContentDetail, DifficultyList, Difficu
 from rest_framework.urlpatterns import format_suffix_patterns
 urlpatterns = patterns('',
                         url(r'^admin/', include(admin.site.urls)),
-                        #url(r'^indextable/', 'main.views.views.index_table'),
-                        url(r'^adminforms/', 'main.views.views.admin_forms'),
+                        #
                         url(r'^searchtable/', 'main.views.views.search_table'),
                         url(r'^signin/', 'main.views.views.signin_manager'),
                         url(r'^logout/', 'main.views.views.user_logout'),
                         url(r'^$', 'main.views.views.home', name='home'),
                         #forms
-                        url(r'^contentform/', 'main.views.views.content_manager'),
-                        url(r'^categoryform/', 'main.views.views.category_manager'),
-                        url(r'^categorytypeform/', 'main.views.views.category_type_manager'),
-                        url(r'^contentcategoryform/', 'main.views.views.content_category_manager'),
+                        url(r'^adminforms/', 'main.views.form_manager.admin_forms'),
+                        url(r'^contentform/', 'main.views.form_manager.content_manager'),
+                        url(r'^categoryform/', 'main.views.form_manager.category_manager'),
+                        url(r'^categorytypeform/', 'main.views.form_manager.category_type_manager'),
+                        url(r'^contentcategoryform/', 'main.views.form_manager.content_category_manager'),
                         #end forms
                         #rest links
                         url(r'^data/contents/$', ContentList.as_view()),
