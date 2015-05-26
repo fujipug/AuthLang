@@ -136,17 +136,19 @@ def content_details(request, id):
 
 def content_list_by_category(request, category_type_slug, category_slug):
     if category_type_slug == 'difficulty':
+        category_type = "Difficulty"
         category = Difficulty.objects.get(slug = category_slug)
-        contents = Content.objects.filter(difficulty = difficulty)
+        contents = Content.objects.filter(difficulty = category)
     elif category_type_slug == 'country':
+        category_type = "Country"
         category = Country.objects.get(slug = category_slug)
-        contents = Content.objects.filter(country = country)
+        contents = Content.objects.filter(country = category)
     else:
         category_type = CategoryType.objects.get(slug=category_type_slug)
         category = Category.objects.get(slug = category_slug)
         #fix later
         contents = Content.objects.all()
-    return render(request, "main/content_list_by_category.html", {'category': category, 'contents': contents})
+    return render(request, "main/content_list_by_category.html", {'category': category, 'category_type': category_type,'contents': contents})
 
 
 def search_table(request):
