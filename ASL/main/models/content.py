@@ -3,6 +3,7 @@ from main.models.category import Category
 from main.models.country import Country
 from main.models.difficulty import Difficulty
 from embed_video.fields import EmbedVideoField
+from django.template.defaultfilters import slugify
 
 
 class Content(models.Model):
