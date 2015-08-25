@@ -59,3 +59,11 @@ class CategoryTypeForm(forms.ModelForm):
 class SigninForm(forms.Form):
     username = forms.CharField(max_length=30)
     password = forms.CharField(widget=forms.PasswordInput())
+
+class SearchForm(forms.Form):
+    first_name = forms.CharField(required=False, max_length=30)
+    last_name = forms.CharField(required=False, max_length=30)
+    country = forms.CharField(required=False, max_length=30)
+    difficulty = forms.CharField(required=False, max_length=30)
+    title = forms.CharField(required=False, max_length=30)
+    categories = forms.CharField(required=False, max_length=200)

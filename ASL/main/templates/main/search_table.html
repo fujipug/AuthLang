@@ -18,8 +18,22 @@
 <br/>
 <br/>
 <br/>
+    <div class = "col-md-6">
+        <form class="form-horizontal" method="post" action = "/searchtable/">
+            <div class="form-group">
+                <div class = "container">
+                    {% csrf_token %}
+                    {{ form.as_p }}
+                    <input class="btn btn-default btn-lg" type="submit" value="Search">
+                </div>
+            </div>
+        </form>
+    </div>
 <div id = "search_table" class = "container">
-    <p> Loading contents...</p>
+    moo
+</div>
+<div>
+    test: {{ test }}
 </div>
 {% endblock %}
 {% block footer %}{% endblock %}
@@ -46,25 +60,35 @@
         if(categories.length > 0) {
             uri_params += "&categories=" + encodeURI(categories);
         }
-        alert(uri_params);
-        $.getJSON("/data/contents/?format=json&" + uri_params, function (json) {
-            var template = $('#table_template').html();
-            Mustache.parse(template);
-            var data = {
-                array: json,
-                "dateString": function () {
-                    return function (text, render) {
-                      return new Date(render(text)).toString();
+        if (uri_params.length > 7) {
+            $('#search_table').text("Loading Contents for Table . . .");
+            $.getJSON("/data/contents/?format=json&" + uri_params, function (json) {
+                var template = $('#table_template').html();
+                Mustache.parse(template);
+                var data = {
+                    array: json,
+                    "dateString": function () {
+                        return function (text, render) {
+                          return new Date(render(text)).toString();
+                        }
                     }
-                }
-            };
-            var rendered = Mustache.render(template, data);
-                
-            $('#search_table').html(rendered);
-        });
+                };
+                var rendered = Mustache.render(template, data);
+                    
+                $('#search_table').html(rendered);
+            });
+        }
+        alert(uri_params);
+
     }
     $(document).ready(function () {
-        loadData("","","","","","other");
+        first_name = $('#id_first_name').val();
+        last_name = $('#id_last_name').val();
+        country = $('#id_country').val();
+        difficulty = $('#id_difficulty').val();
+        title = $('#id_title').val();
+        categories = $('#id_categories').val();
+        loadData(first_name,last_name,difficulty,country,title,categories);
     });
 </script>
 {% verbatim %}
@@ -72,17 +96,20 @@
     <table class = "table" style = "width:100%">
         <!--<caption>Stuff</caption>-->
         <tr>
-            <td>Nombre</td>
-            <td>Apellido</td>
-            <td>Pais</td>
-            <td>Titulo</td>
+            <td>First Name</td>
+            <td>Last Name</td>
+            <td>Country</td>
+            <td>Title</td>
+            <td>Difficulty</td>
         </tr>
         {{ #array }}
-        <tr>
+        
+        <tr onclick="window.location.href='/contents/{{ id }}'">
             <td>{{ first_name }}</td>
             <td>{{ last_name }}</td>
             <td>{{ country.country }}</td>
             <td>{{ title }}</td>
+            <td>{{ difficulty.difficulty }}</td>
         </tr>
         {{ /array }}
     </table>  

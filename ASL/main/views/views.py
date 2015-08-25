@@ -5,11 +5,12 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.models import User
 from main.models import Content, Difficulty, Country, CategoryType, Category
 from django import forms
-from main.forms import ContentForm, DifficultyForm, CountryForm, CategoryTypeForm, CategoryForm, SigninForm
+from main.forms import ContentForm, DifficultyForm, CountryForm, CategoryTypeForm, CategoryForm, SigninForm, SearchForm
 from django.core import serializers
 from main.serializers import ContentSerializer, DifficultySerializer, CountrySerializer, CategoryTypeSerializer, CategorySerializer
 from rest_framework import filters
 from rest_framework import generics
+from django.utils.encoding import uri_to_iri
 
 
 #Serializer Stuff
@@ -44,9 +45,9 @@ class ContentList(generics.ListCreateAPIView):
         first_name_substring= self.request.query_params.get('first_name', "").decode('utf8')
         last_name_substring = self.request.query_params.get('last_name', "").decode('utf8')
         difficulty_substring = self.request.query_params.get('difficulty', "").decode('utf8')
-        country_substring = self.request.query_params.get('country', "").decode('utf8')
-        title_substring = self.request.query_params.get('title', "")
-        category_substring_list = self.request.query_params.get('categories', "")
+        country_substring = slugify(uri_to_iri(self.request.query_params.get('country', "")))
+        title_substring = self.request.query_params.get('title', "").decode('utf8')
+        category_substring_list = self.request.query_params.get('categories', "").decode('utf8')
 
         #get categories based off category substring list
         category_filters = []
@@ -69,13 +70,13 @@ class ContentList(generics.ListCreateAPIView):
         for content in contents:
             if not self.string_contains_substring(slugify(content.first_name), first_name_substring):
                 continue
-            if not self.string_contains_substring(content.last_name, last_name_substring):
+            if not self.string_contains_substring(slugify(content.last_name), last_name_substring):
                 continue
             if not self.string_contains_substring(content.country.slug, country_substring):
                 continue
             if not self.string_contains_substring(content.difficulty.slug, difficulty_substring):
                 continue
-            if not self.string_contains_substring(content.title, title_substring):
+            if not self.string_contains_substring(slugify(content.title), title_substring):
                 continue
             if category_substring_list and not self.any_element_in_both_lists(category_filters, content.categories.all()):
                 continue
@@ -169,12 +170,9 @@ def content_list_by_category(request, category_type_slug, category_slug):
 
 
 def search_table(request):
-    first_name_substring = request.GET.get('first_name', None)
-    #last_name_substring = self.request.query_params.get('last_name', None)
-    #difficulty_slug_substring = self.request.query_params.get('difficulty', None)
-    #country_slug_substring = self.request.query_params.get('country', '')
-    #title_substring = self.request.query_params.get('title', '')
-    #category_slug_substring_list = self.request.query_params.get('categories', '')
-
-    contents = Content.objects.all()
-    return render(request, "main/search_table.html", {'contents': contents, 'first_name': first_name_substring})
+    test = uri_to_iri("costa%20rica")
+    if request.method == 'POST':
+        form = SearchForm(request.POST)
+    else:
+        form = SearchForm()
+    return render(request, "main/search_table.html", {"form": form, "test": test})
